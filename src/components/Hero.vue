@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
     <div class="hero-wrapper">
-      <div class="img"></div>
+      <img class="profile" src="~@/assets/img/Starege.png" alt="Avatar">
       <div class="hero-descr">
         <h2>Username</h2>
         <h3>Level 666</h3>
@@ -86,17 +86,20 @@ export default {
     padding-top: 67px;
     overflow-wrap: break-word;
     align-items: center;
-    
-    p {
-      width: 275px;
-      font-size: 50px;
-      line-height: 45px;
-      text-align: center;
-    }
+  }
+
+  &__btn {
+    margin-top: 15px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 40px;
+    width: 275px;
+    text-align: center;
   }
 }
 
-.img {
+.profile {
   background-color: #FFFFFF;
   width: 150px;
   height: 150px;

@@ -6,20 +6,20 @@
       Menu
     </div>
     <div class="battlefield">
-<!--      <div class="player-field">-->
-<!--        <div class="player1">-->
-<!--          <Unit/>-->
-<!--          <Unit/>-->
-<!--          <Unit/>-->
-<!--          <Unit/>-->
-<!--        </div>-->
-<!--        <div class="player2">-->
-<!--          <Unit/>-->
-<!--          <Unit/>-->
-<!--          <Unit/>-->
-<!--          <Unit/>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="player-field">
+        <div class="player1">
+          <Unit/>
+          <Unit/>
+          <Unit/>
+          <Unit/>
+        </div>
+        <div class="player2">
+          <Unit/>
+          <Unit/>
+          <Unit/>
+          <Unit/>
+        </div>
+      </div>
     </div>
     <div class="table">
       <div class="hand">
@@ -80,12 +80,16 @@ export default {
 
 .battlefield {
   background: url("~@/assets/img/Playground.png") no-repeat;
-  height: 100%;
+  height: calc(100% - 265px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .player-field {
   display: flex;
   justify-content: space-around;
+  padding-bottom: 10px;
 }
 
 .table {

@@ -14,7 +14,9 @@
       </ul>
 
       <form action="">
-        <button type="submit">Start the game</button>
+        <router-link to="/game">
+          <button type="submit" >Start the game</button>
+        </router-link>
       </form>
     </div>
   </div>
@@ -70,6 +72,12 @@ export default {
       width: 100%;
       background-color: #626262;
       color: #FFFFFF;
+      transition: all 0.1s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        background-color: green;
+      }
     }
   }
 }

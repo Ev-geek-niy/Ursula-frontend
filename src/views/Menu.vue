@@ -22,7 +22,7 @@
       </div>
       <div>
         <div v-if="show || join" class="hide" :class="{'z-2': create}"></div>
-        <Modal
+        <FindGame
           v-if="show"
           :onCloseModal="closeModal"
           :showCreateLobby="showCreateLobby"
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { MenuButton, Hero, Modal, CreateLobby, Lobby } from '@/components';
+import { MenuButton, Hero, FindGame, CreateLobby, Lobby } from '@/components';
 
 export default ({
     name: 'Menu',
@@ -52,7 +52,7 @@ export default ({
         join: false
       }
     },
-    components: {MenuButton, Hero, Modal, CreateLobby, Lobby},
+    components: {MenuButton, Hero, FindGame, CreateLobby, Lobby},
     methods: {
       showModal() {
         this.show = true
