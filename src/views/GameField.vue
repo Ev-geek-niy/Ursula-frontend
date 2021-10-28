@@ -6,22 +6,20 @@
       Menu
     </div>
     <div class="battlefield">
-      <div class="player-field">
-        <div class="player1">
-          <Shadow/>
-          <Unit/>
-          <Unit/>
-          <Unit/>
-          <Unit/>
-        </div>
-        <div class="player2">
-          <Shadow/>
-          <Unit/>
-          <Unit/>
-          <Unit/>
-          <Unit/>
-        </div>
-      </div>
+<!--      <div class="player-field">-->
+<!--        <div class="player1">-->
+<!--          <Unit/>-->
+<!--          <Unit/>-->
+<!--          <Unit/>-->
+<!--          <Unit/>-->
+<!--        </div>-->
+<!--        <div class="player2">-->
+<!--          <Unit/>-->
+<!--          <Unit/>-->
+<!--          <Unit/>-->
+<!--          <Unit/>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <div class="table">
       <div class="hand">
@@ -31,7 +29,6 @@
         <Card/>
         <Card/>
       </div>
-      <div class="endturn">End turn</div>
     </div>
   </div>
 </template>
@@ -82,10 +79,8 @@ export default {
 }
 
 .battlefield {
-  height: calc(100% - 380px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  background: url("~@/assets/img/Playground.png") no-repeat;
+  height: 100%;
 }
 
 .player-field {
@@ -97,16 +92,17 @@ export default {
   position: absolute;
   bottom: 0;
   background-color: #FFFFFF;
-  height: 380px;
+  height: 265px;
   width: 100%;
 }
 
 .hand {
   margin: 0 auto;
-  padding-top: 17px;
+  padding-top: 0;
   display: flex;
   justify-content: space-between;
-  width: 1200px;
+  width: 1120px;
+  height: 100%;
 }
 
 .endturn {

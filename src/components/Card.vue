@@ -7,14 +7,14 @@
 <script>
 export default {
   name: 'Card',
-  
+
 }
 </script>
 <style lang="scss" scoped>
 
 .card {
-  width: 200px;
-  height: 275px;
+  width: 190px;
+  height: 265px;
 }
 
 </style>
