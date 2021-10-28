@@ -9,8 +9,18 @@
       </div>
 
       <ul class="lobby__players">
-        <li><span>BRUH</span></li>
-        <li><span class="lobby__players-waiting">waiting...</span></li>
+        <li class="player">
+          <img class="player__img" src="~@/assets/img/Trooper.png" alt="player1">
+          <div class="player__descr">
+            <p class="player__nickname">Boss of the gym</p>
+            <p>lvl: 3</p>
+            <p>Wins: 12</p>
+            <p>Losses: 7</p>
+          </div>
+        </li>
+        <li>
+          <p class="lobby__players-waiting">waiting...</p>
+        </li>
       </ul>
 
       <form action="">
@@ -56,7 +66,7 @@ export default {
   z-index: 1;
 
   &__wrapper {
-    padding-top: 217px;
+    padding-top: 50px;
     width: 737px;
     height: 100%;
     margin: 0 auto;
@@ -93,22 +103,47 @@ export default {
   }
 
   &__players {
-    font-size: 30px;
-    line-height: 74px;
     list-style-type: none;
 
     li {
       padding-left: 27px;
-      margin-bottom: 14px;
-      height: 74px;
+      margin-bottom: 34px;
+      height: 200px;
       background: #FFFFFF;
       border-radius: 5px;
     }
 
     &-waiting {
+      font-size: 40px;
+      line-height: 200px;
+      text-align: center;
       color: #000000;
       opacity: 0.3;
     }
+  }
+}
+
+.player {
+  width: 100%;
+  padding: 20px 0;
+
+  &__img {
+    float: left;
+    width: 103.65px;
+    height: 160px;
+  }
+
+  &__descr {
+    height: 100%;
+    padding-left: 53px;
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  &__nickname {
+    font-size: 40px;
   }
 }
 </style>
