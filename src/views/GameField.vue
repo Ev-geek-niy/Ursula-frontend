@@ -28,6 +28,10 @@
         <Card/>
         <Card/>
       </div>
+      <div class="table__status">
+        <DeckStatus>Cards left</DeckStatus>
+        <DeckStatus>Discards</DeckStatus>
+      </div>
       <div class="endturn">End turn</div>
     </div>
   </div>
@@ -36,10 +40,11 @@
 <script>
 import { Card, Unit, Shadow } from '../components/Gamefield';
 import Decorations from '@/components/Gamefield/Decorations';
+import DeckStatus from '@/components/Gamefield/DeckStatus';
 
 export default {
   name: 'GameField',
-  components: {Shadow, Unit, Card, Decorations}
+  components: {DeckStatus, Shadow, Unit, Card, Decorations}
 }
 </script>
 
@@ -93,6 +98,16 @@ export default {
   height: 390px;
   width: 100%;
   border-top: 4px solid #626262;
+
+  &__status {
+    position: absolute;
+    height: 245px;
+    top: 30px;
+    right: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
 }
 
 .hand {
