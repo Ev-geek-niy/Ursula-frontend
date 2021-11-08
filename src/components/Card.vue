@@ -1,20 +1,25 @@
 <template>
   <img
     class="card"
-    src="~@/assets/img/card.png"
+    :src="cardImgUrl"
     alt="card">
 </template>
 <script>
+import cardImgUrl from '@/assets/img/Cards/newCard.png'
+
 export default {
   name: 'Card',
-
+  data() {
+    return {
+      cardImgUrl
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
 
 .card {
-  width: 190px;
-  height: 265px;
+  height: 100%;
 }
 
 </style>

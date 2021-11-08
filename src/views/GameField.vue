@@ -9,15 +9,15 @@
       <div class="player-field">
         <div class="player1">
           <Unit/>
-          <Unit/>
-          <Unit/>
-          <Unit/>
+          <!--          <Unit/>-->
+          <!--          <Unit/>-->
+          <!--          <Unit/>-->
         </div>
         <div class="player2">
-          <Unit/>
-          <Unit/>
-          <Unit/>
-          <Unit/>
+          <!--          <Unit/>-->
+          <!--          <Unit/>-->
+          <!--          <Unit/>-->
+          <!--          <Unit/>-->
         </div>
       </div>
     </div>
@@ -29,6 +29,7 @@
         <Card/>
         <Card/>
       </div>
+      <div class="endturn">111</div>
     </div>
   </div>
 </template>
@@ -79,8 +80,8 @@ export default {
 }
 
 .battlefield {
-  background: url("~@/assets/img/Playground.png") no-repeat;
-  height: calc(100% - 265px);
+  background: url("~@/assets/img/Backgrounds/Playground.png") no-repeat;
+  height: calc(100% - 390px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -96,21 +97,20 @@ export default {
   position: absolute;
   bottom: 0;
   background-color: #FFFFFF;
-  height: 265px;
+  height: 390px;
   width: 100%;
 }
 
 .hand {
-  margin: 0 auto;
-  padding-top: 0;
+  margin: 33px auto 0;
   display: flex;
   justify-content: space-between;
   width: 1120px;
-  height: 100%;
+  height: 245px;
 }
 
 .endturn {
-  margin: 10px auto 0;
+  margin: 30px auto 0;
   width: 380px;
   height: 30px;
   background-color: #73FCFD;
@@ -119,17 +119,10 @@ export default {
   line-height: 30px;
 }
 
-.player1 {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 500px;
-}
-
-.player2 {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 500px;
+.player1, .player2 {
+  //position: relative;
+  //display: flex;
+  //justify-content: space-between;
+  //width: 800px;
 }
 </style>

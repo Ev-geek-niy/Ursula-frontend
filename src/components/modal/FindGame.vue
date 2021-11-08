@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import CloseButton from '@/components/CloseButton';
-import { MenuButton, CreateLobby } from '@/components/index';
+import CloseButton from '@/components/UI/CloseButton';
+import { MenuButton, CreateLobby } from '@/components';
 
 export default {
   name: 'Modal',

@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import CloseButton from '@/components/CloseButton';
+import CloseButton from '@/components/UI/CloseButton';
 
 export default {
   name: 'CreateLobby',

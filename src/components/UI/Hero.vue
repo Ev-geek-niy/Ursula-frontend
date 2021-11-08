@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
     <div class="hero-wrapper">
-      <img class="profile" src="~@/assets/img/Starege.png" alt="Avatar">
+      <img class="profile" :src="Starege" alt="Avatar">
       <div class="hero-descr">
         <h2>Username</h2>
         <h3>Level 666</h3>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="hero-character">
-      <img class="hero-img" src="~@/assets/img/Trooper.png" alt="Hero Image">
+      <img class="hero-img" :src="Trooper" alt="Hero Image">
       <router-link to="/change" v-if="change">
         <p class="hero__btn">
           Change my character
@@ -25,8 +25,17 @@
   </div>
 </template>
 <script>
+import Trooper from '@/assets/img/Trooper/Trooper.png'
+import Starege from '@/assets/img/Starege.png'
+
 export default {
   name: 'Hero',
+  data() {
+    return {
+      Trooper,
+      Starege
+    }
+  },
   props: {
     change: {
       type: Boolean,

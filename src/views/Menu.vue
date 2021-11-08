@@ -6,16 +6,16 @@
 
         <div class="menu">
           <div class="menu-wrapper">
-            <menu-button
+            <MenuButton
               @click="showModal"
             >
               Find a game
-            </menu-button>
-            <menu-button>Game manual</menu-button>
+            </MenuButton>
+            <MenuButton>Game manual</MenuButton>
             <router-link to="/change">
-              <menu-button>Setting</menu-button>
+              <MenuButton>Setting</MenuButton>
             </router-link>
-            <menu-button>Log out</menu-button>
+            <MenuButton>Log out</MenuButton>
           </div>
         </div>
 
@@ -41,7 +41,8 @@
 </template>
 
 <script>
-import { MenuButton, Hero, FindGame, CreateLobby, Lobby } from '@/components';
+import { Hero, MenuButton } from '@/components/UI'
+import { FindGame, CreateLobby, Lobby } from '@/components/modal';
 
 export default ({
     name: 'Menu',
@@ -81,7 +82,7 @@ export default ({
 
 <style lang="scss" scoped>
 .main-menu {
-  background: url("~@/assets/img/Background_Menu.png") no-repeat;
+  background: url("~@/assets/img/Backgrounds/Background_Menu.png") no-repeat;
   z-index: 0;
 }
 

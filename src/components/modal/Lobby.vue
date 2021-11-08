@@ -10,7 +10,7 @@
 
       <ul class="lobby__players">
         <li class="player">
-          <img class="player__img" src="~@/assets/img/Trooper.png" alt="player1">
+          <img class="player__img" :src="Trooper" alt="player1">
           <div class="player__descr">
             <p class="player__nickname">Boss of the gym</p>
             <p>lvl: 3</p>
@@ -25,7 +25,7 @@
 
       <form action="">
         <router-link to="/game">
-          <button type="submit" >Start the game</button>
+          <button type="submit">Start the game</button>
         </router-link>
       </form>
     </div>
@@ -33,12 +33,19 @@
 </template>
 
 <script>
-import { MenuButton } from '@/components/index';
-import CloseButton from '@/components/CloseButton';
+import Trooper from '@/assets/img/Trooper/Trooper.png'
+
+import { MenuButton } from '@/components';
+import CloseButton from '@/components/UI/CloseButton';
 
 export default {
   name: 'Lobby',
   components: {CloseButton, MenuButton},
+  data() {
+    return {
+      Trooper
+    }
+  },
   props: {
     quitLobby: {
       type: Function,

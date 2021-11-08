@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { MenuButton } from '@/components';
+import { MenuButton } from '@/components/UI';
 
 export default ({
     name: 'Auth',
@@ -29,7 +29,7 @@ export default ({
 
 <style lang="scss" scoped>
 .auth {
-  background: url("~@/assets/img/Background_Auth.png");
+  background: url("~@/assets/img/Backgrounds/Background_Auth.png");
 }
 
 .container {

@@ -5,31 +5,31 @@
         <Hero/>
         <div class="palette">
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
           <div class="variant">
-            <img src="~@/assets/img/Trooper.png" alt="trooper">
+            <img :src="Trooper" alt="trooper">
           </div>
         </div>
       </div>
@@ -38,17 +38,23 @@
 </template>
 
 <script>
+import Trooper from '@/assets/img/Trooper/Trooper.png'
 import { Hero } from '@/components'
 
 export default {
   name: 'SelectCharacter',
-  components: {Hero}
+  components: {Hero},
+  data() {
+    return {
+      Trooper
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .select-character {
-  background: url("~@/assets/img/Background_Menu.png") no-repeat;
+  background: url("~@/assets/img/Backgrounds/Background_Menu.png") no-repeat;
 }
 
 .container {
