@@ -1,16 +1,7 @@
 <template>
-  <div>
-    <button @click="changeState(Calm)">Calm</button>
-    <button @click="changeState(Death)">Die</button>
-    <button @click="changeState">Spawn</button>
-    <button @click="changeState">Cover</button>
-    <button @click="changeState">Shoot</button>
-    <button @click="changeState(Shooting)">Hit</button>
-    <button @click="changeState(CoverShooting)">Cover Hit</button>
-    <button @click="changeState(Test)">Test Gif</button>
-  </div>
   <div class="unit">
-    <img :src="currentState" alt="Soldier">
+    <img :class="{'mirror': mirror}" :src="currentState" alt="Soldier">
+    <div class="hp"></div>
   </div>
 </template>
 <script>
@@ -26,6 +17,11 @@ export default {
       CoverShooting,
       Test,
       currentState: Calm
+    }
+  },
+  props: {
+    mirror: {
+      type: Boolean,
     }
   },
   methods: {
@@ -50,12 +46,26 @@ button {
 }
 
 .unit {
+  display: inline-block;
   cursor: pointer;
-  height: 175px;
-  width: 100%;
+  height: 200px;
+  z-index: 5;
 
   img {
     height: 100%;
+  }
+
+  .mirror {
+    transform: scaleX(-1);
+  }
+
+  .hp {
+    position: absolute;
+    width: 132px;
+    height: 15px;
+    background-color: red;
+    border: 2px solid #FFFFFF;
+    bottom: -25px;
   }
 }
 </style>
