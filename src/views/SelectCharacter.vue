@@ -39,7 +39,7 @@
 
 <script>
 import Trooper from '@/assets/img/Trooper/Trooper.png'
-import { Hero } from '@/components'
+import { Hero } from '@/components/UI';
 
 export default {
   name: 'SelectCharacter',

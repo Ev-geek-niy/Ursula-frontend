@@ -16,14 +16,15 @@
       </div>
 
       <div class="modal__list">
-        <MenuButton
-          v-for="(lobby, index) in lobbies"
+        <LobbyField
+          v-for="({name, privatised}, index) in lobbies"
           class="modal__list-item"
           :class="{'modal__list-item-select': selected === index}"
+          :privatised="privatised"
           @click="onChangeLobby(index)"
         >
-          {{ lobby }}
-        </MenuButton>
+          {{ name }}
+        </LobbyField>
       </div>
 
       <div class="modal__btns">
@@ -42,24 +43,30 @@
 </template>
 
 <script>
-import CloseButton from '@/components/UI/CloseButton';
-import { MenuButton, CreateLobby } from '@/components';
+import { CreateLobby } from '@/components/Modal';
+import { MenuButton, CloseButton, LobbyField } from '@/components/UI';
 
 export default {
   name: 'Modal',
   data() {
     return {
       selected: 0,
-      lobbies: ['CAKESNIFFERS', 'BRUH', 'BOSS OF THE GYM', 'FIGHT CLUB', 'HELLO UGLIES']
+      lobbies: [
+        {name: 'CAKE', privatised: true},
+        {name: 'BRUH', privatised: false},
+        {name: 'BOSS OF THE GYM', privatised: false},
+        {name: 'FIGHT CLUB', privatised: true},
+        {name: 'HELLO UGLIES', privatised: false}]
     }
   },
-  components: {CreateLobby, MenuButton, CloseButton},
+  components: {LobbyField, CreateLobby, MenuButton, CloseButton},
   methods: {
     handleCloseModal() {
       this.onCloseModal();
     },
     onChangeLobby(index) {
       this.selected = index
+      console.log(this.selected)
     },
     handleCreateLobby() {
       this.showCreateLobby()
@@ -142,6 +149,7 @@ export default {
       list-style-type: none;
       background-color: #FFFFFF;
       text-align: left;
+      border-radius: 5px;
 
       &:last-child {
         margin-bottom: 0;

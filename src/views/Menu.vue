@@ -42,42 +42,42 @@
 
 <script>
 import { Hero, MenuButton } from '@/components/UI'
-import { FindGame, CreateLobby, Lobby } from '@/components/modal';
+import { FindGame, CreateLobby, Lobby, CreateLobbyNew } from '@/components/Modal';
 
-export default ({
-    name: 'Menu',
-    data() {
-      return {
-        show: false,
-        create: false,
-        join: false
-      }
+export default {
+  name: 'Menu',
+  data() {
+    return {
+      show: false,
+      create: false,
+      join: false
+    }
+  },
+  components: {MenuButton, Hero, FindGame, CreateLobby, Lobby},
+  methods: {
+    showModal() {
+      this.show = true
     },
-    components: {MenuButton, Hero, FindGame, CreateLobby, Lobby},
-    methods: {
-      showModal() {
-        this.show = true
-      },
-      closeModal() {
-        this.show = false
-      },
-      showCreateLobby() {
-        this.create = true
-      },
-      closeCreateLobby() {
-        this.create = false
-      },
-      joinLobby() {
-        this.join = true
-        this.show = false
-      },
-      quitLobby() {
-        this.join = false
-        this.show = true
-      }
+    closeModal() {
+      this.show = false
+    },
+    showCreateLobby() {
+      this.create = true
+    },
+    closeCreateLobby() {
+      this.create = false
+    },
+    joinLobby() {
+      this.join = true
+      this.show = false
+    },
+    quitLobby() {
+      this.join = false
+      this.show = true
     }
   }
-)
+}
+
 </script>
 
 <style lang="scss" scoped>

@@ -5,15 +5,14 @@
 </template>
 
 <script>
-export default ({
-    name: 'MenuButton'
-  }
-)
+export default {
+  name: 'MenuButton'
+}
 </script>
 
 <style lang="scss" scoped>
 .button {
-  width: 500px;
+  width: 100%;
   height: 100px;
   background-color: #FFFFFF;
   transition: all 0.1s ease;

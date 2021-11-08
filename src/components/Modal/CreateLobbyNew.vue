@@ -2,28 +2,18 @@
   <div class="modal__create">
     <CloseButton :on-click="handleCloseCreateModal"/>
     <form action="#" method="post" class="modal__create-form">
-      <div>
-        <input id="public" type="radio" name="lobby" value="public">
-        <label for="public">public</label>
-      </div>
-      <div>
-        <input id="private" type="radio" name="lobby" value="private">
-        <label for="private">private</label>
-      </div>
-      <div>
-        <input type="text" placeholder="name">
-        <input type="text" placeholder="password">
-      </div>
+      <MenuButton>Public</MenuButton>
+      <MenuButton>Private</MenuButton>
       <button type="submit">Create</button>
     </form>
   </div>
 </template>
 <script>
-import CloseButton from '@/components/UI/CloseButton';
+import { CloseButton, MenuButton } from '@/components/UI';
 
 export default {
   name: 'CreateLobby',
-  components: {CloseButton},
+  components: {MenuButton, CloseButton},
   data() {
     return {
       selected: null,
@@ -51,7 +41,7 @@ export default {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     width: 500px;
-    height: 450px;
+    height: 340px;
     background-color: #C4C4C4;
     border: 5px solid #626262;
 

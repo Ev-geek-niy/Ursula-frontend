@@ -35,8 +35,8 @@
 <script>
 import Trooper from '@/assets/img/Trooper/Trooper.png'
 
-import { MenuButton } from '@/components';
-import CloseButton from '@/components/UI/CloseButton';
+import { MenuButton, CloseButton } from '@/components/UI';
+
 
 export default {
   name: 'Lobby',
