@@ -42,29 +42,31 @@
   </div>
 </template>
 
-<script>
-import { CreateLobby } from '@/components/Modal';
-import { MenuButton, CloseButton, LobbyField } from '@/components/UI';
+<script lang="ts">
+import {defineComponent} from "vue";
 
-export default {
+import {CreateLobby} from '@/components/Modal';
+import {MenuButton, CloseButton, LobbyField} from '@/components/UI';
+
+export default defineComponent({
   name: 'Modal',
   data() {
     return {
       selected: 0,
       lobbies: [
-        {name: 'CAKE', privatised: true},
-        {name: 'BRUH', privatised: false},
-        {name: 'BOSS OF THE GYM', privatised: false},
-        {name: 'FIGHT CLUB', privatised: true},
-        {name: 'HELLO UGLIES', privatised: false}]
+        { name: 'CAKE', privatised: true },
+        { name: 'BRUH', privatised: false },
+        { name: 'BOSS OF THE GYM', privatised: false },
+        { name: 'FIGHT CLUB', privatised: true },
+        { name: 'HELLO UGLIES', privatised: false }]
     }
   },
-  components: {LobbyField, CreateLobby, MenuButton, CloseButton},
+  components: { LobbyField, CreateLobby, MenuButton, CloseButton },
   methods: {
     handleCloseModal() {
       this.onCloseModal();
     },
-    onChangeLobby(index) {
+    onChangeLobby(index: number) {
       this.selected = index
       console.log(this.selected)
     },
@@ -89,7 +91,7 @@ export default {
       required: true
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

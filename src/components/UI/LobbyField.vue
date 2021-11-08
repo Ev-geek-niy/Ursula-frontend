@@ -10,10 +10,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from "vue";
+
 import LockerIcon from '@/assets/img/Icons/locker 1.png'
 
-export default {
+export default defineComponent({
   name: 'LobbyField',
   data() {
     return {
@@ -25,7 +27,7 @@ export default {
       type: Boolean
     }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

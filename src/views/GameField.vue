@@ -34,13 +34,15 @@
   </div>
 </template>
 
-<script>
-import { Card, Unit, Shadow } from '../components';
+<script lang="ts">
+import {defineComponent} from 'vue';
 
-export default {
+import {Card, Unit, Shadow} from '../components';
+
+export default defineComponent({
   name: 'GameField',
-  components: {Shadow, Unit, Card}
-}
+  components: { Shadow, Unit, Card }
+})
 </script>
 
 <style lang="scss" scoped>

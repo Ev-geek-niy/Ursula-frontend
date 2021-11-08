@@ -40,11 +40,13 @@
   </div>
 </template>
 
-<script>
-import { Hero, MenuButton } from '@/components/UI'
-import { FindGame, CreateLobby, Lobby, CreateLobbyNew } from '@/components/Modal';
+<script lang="ts">
+import {defineComponent} from 'vue';
 
-export default {
+import {Hero, MenuButton} from '@/components/UI'
+import {FindGame, CreateLobby, Lobby} from '@/components/Modal';
+
+export default defineComponent({
   name: 'Menu',
   data() {
     return {
@@ -53,7 +55,7 @@ export default {
       join: false
     }
   },
-  components: {MenuButton, Hero, FindGame, CreateLobby, Lobby},
+  components: { MenuButton, Hero, FindGame, CreateLobby, Lobby },
   methods: {
     showModal() {
       this.show = true
@@ -76,7 +78,7 @@ export default {
       this.show = true
     }
   }
-}
+})
 
 </script>
 

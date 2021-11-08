@@ -37,19 +37,21 @@
   </div>
 </template>
 
-<script>
-import Trooper from '@/assets/img/Trooper/Trooper.png'
-import { Hero } from '@/components/UI';
+<script lang="ts">
+import {defineComponent} from 'vue';
 
-export default {
+import Trooper from '@/assets/img/Trooper/Trooper.png'
+import {Hero} from '@/components/UI';
+
+export default defineComponent({
   name: 'SelectCharacter',
-  components: {Hero},
+  components: { Hero },
   data() {
     return {
       Trooper
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

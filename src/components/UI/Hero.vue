@@ -24,11 +24,13 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import {defineComponent} from 'vue';
+
 import Trooper from '@/assets/img/Trooper/Trooper.png'
 import Starege from '@/assets/img/Starege.png'
 
-export default {
+export default defineComponent({
   name: 'Hero',
   data() {
     return {
@@ -39,10 +41,9 @@ export default {
   props: {
     change: {
       type: Boolean,
-      required: true
     }
   }
-}
+})
 </script>
 <style lang="scss" scoped>
 

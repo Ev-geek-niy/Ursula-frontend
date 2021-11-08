@@ -13,10 +13,13 @@
     <img :src="currentState" alt="Soldier">
   </div>
 </template>
-<script>
-import { Calm, Death, Shooting, CoverShooting, Test } from '@/assets/img/Trooper';
 
-export default {
+<script lang="ts">
+import {defineComponent} from 'vue';
+
+import {Calm, Death, Shooting, CoverShooting, Test} from '@/assets/img/Trooper';
+
+export default defineComponent({
   name: 'Unit',
   data() {
     return {
@@ -29,11 +32,11 @@ export default {
     }
   },
   methods: {
-    changeState(state) {
+    changeState(state: any) {
       this.currentState = state
     }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

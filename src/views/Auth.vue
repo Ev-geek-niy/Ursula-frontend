@@ -17,14 +17,15 @@
   </div>
 </template>
 
-<script>
-import { MenuButton } from '@/components/UI';
+<script lang="ts">
+import {defineComponent} from 'vue';
 
-export default ({
-    name: 'Auth',
-    components: {MenuButton}
-  }
-)
+import {MenuButton} from '@/components/UI';
+
+export default defineComponent({
+  name: 'Auth',
+  components: { MenuButton }
+})
 </script>
 
 <style lang="scss" scoped>

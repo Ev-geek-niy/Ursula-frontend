@@ -8,12 +8,15 @@
     </form>
   </div>
 </template>
-<script>
-import { CloseButton, MenuButton } from '@/components/UI';
 
-export default {
+<script lang="ts">
+import {defineComponent} from 'vue';
+
+import {CloseButton, MenuButton} from '@/components/UI';
+
+export default defineComponent({
   name: 'CreateLobby',
-  components: {MenuButton, CloseButton},
+  components: { MenuButton, CloseButton },
   data() {
     return {
       selected: null,
@@ -30,7 +33,7 @@ export default {
       required: true
     }
   }
-}
+})
 </script>
 <style lang="scss" scoped>
 .modal {

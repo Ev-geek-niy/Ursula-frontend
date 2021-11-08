@@ -32,15 +32,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from "vue";
+
 import Trooper from '@/assets/img/Trooper/Trooper.png'
+import {MenuButton, CloseButton} from '@/components/UI';
 
-import { MenuButton, CloseButton } from '@/components/UI';
 
-
-export default {
+export default defineComponent({
   name: 'Lobby',
-  components: {CloseButton, MenuButton},
+  components: { CloseButton, MenuButton },
   data() {
     return {
       Trooper
@@ -57,7 +58,7 @@ export default {
       this.quitLobby()
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
