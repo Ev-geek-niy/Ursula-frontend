@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     changeState(state) {
-      this.currentState = state
+      this.currentState = state + '?a=' + Math.random();
     }
   },
 }
