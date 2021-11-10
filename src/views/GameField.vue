@@ -32,7 +32,7 @@
         <DeckStatus>Cards left</DeckStatus>
         <DeckStatus>Discards</DeckStatus>
       </div>
-      <div class="endturn">End turn</div>
+      <!--      <div class="endturn">End turn</div>-->
     </div>
   </div>
 </template>
@@ -66,6 +66,7 @@ export default {
   line-height: 55px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 10;
 }
 
 .angle {
@@ -88,21 +89,21 @@ export default {
 .battlefield {
   position: relative;
   background: url("~@/assets/img/Backgrounds/BattleGround.png") no-repeat;
-  height: calc(100% - 390px);
+  height: calc(100% - 250px);
 }
 
 .table {
   position: absolute;
   bottom: 0;
   background-color: #FFFFFF;
-  height: 390px;
+  height: 275px;
   width: 100%;
   border-top: 4px solid #626262;
 
   &__status {
     position: absolute;
     height: 245px;
-    top: 30px;
+    top: 10px;
     right: 50px;
     display: flex;
     justify-content: space-between;
@@ -111,7 +112,7 @@ export default {
 }
 
 .hand {
-  margin: 33px auto 0;
+  margin: 10px auto 0;
   display: flex;
   justify-content: space-between;
   width: 1120px;

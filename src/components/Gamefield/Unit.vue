@@ -66,6 +66,7 @@ button {
     background-color: red;
     border: 2px solid #FFFFFF;
     bottom: -25px;
+    left: -17px;
   }
 }
 </style>
