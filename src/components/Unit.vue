@@ -2,19 +2,17 @@
   <div>
     <button @click="changeState(Calm)">Calm</button>
     <button @click="changeState(Death)">Die</button>
-    <button @click="changeState">Spawn</button>
-    <button @click="changeState">Cover</button>
-    <button @click="changeState">Shoot</button>
-    <button @click="changeState(Shooting)">Hit</button>
-    <button @click="changeState(CoverShooting)">Cover Hit</button>
-    <button @click="changeState(Test)">Test Gif</button>
+    <button @click="changeState(Spawn)">Spawn</button>
+    <button @click="changeState(CoverShooting)">CoverShooting</button>
+    <button @click="changeState(ShootingAndCovering)">ShootingAndCovering</button>
+    <button @click="changeState(Hit)">Hit</button>
   </div>
   <div class="unit">
     <img :src="currentState" alt="Soldier">
   </div>
 </template>
 <script>
-import { Calm, Death, Shooting, CoverShooting, Test } from '@/assets/img/Trooper';
+import { Calm, Death, Shooting, CoverShooting, ShootingAndCovering, Hit, Spawn } from '@/assets/img/Trooper';
 
 export default {
   name: 'Unit',
@@ -22,9 +20,11 @@ export default {
     return {
       Calm,
       Death,
+      Spawn,
       Shooting,
       CoverShooting,
-      Test,
+      ShootingAndCovering,
+      Hit,
       currentState: Calm
     }
   },
