@@ -6,18 +6,17 @@
       Menu
     </div>
     <div class="battlefield">
+      <Decorations/>
       <div class="player-field">
         <div class="player1">
-          <Unit/>
-          <!--          <Unit/>-->
-          <!--          <Unit/>-->
-          <!--          <Unit/>-->
+          <Unit data-pos="1"/>
+          <Unit data-pos="2"/>
+          <Unit data-pos="3"/>
         </div>
         <div class="player2">
-          <!--          <Unit/>-->
-          <!--          <Unit/>-->
-          <!--          <Unit/>-->
-          <!--          <Unit/>-->
+          <Unit data-pos="4" mirror/>
+          <Unit data-pos="5" mirror/>
+          <Unit data-pos="6" mirror/>
         </div>
       </div>
     </div>
@@ -29,17 +28,23 @@
         <Card/>
         <Card/>
       </div>
-      <div class="endturn">111</div>
+      <div class="table__status">
+        <DeckStatus>Cards left</DeckStatus>
+        <DeckStatus>Discards</DeckStatus>
+      </div>
+      <!--      <div class="endturn">End turn</div>-->
     </div>
   </div>
 </template>
 
 <script>
-import { Card, Unit, Shadow } from '../components';
+import { Card, Unit, Shadow } from '../components/Gamefield';
+import Decorations from '@/components/Gamefield/Decorations';
+import DeckStatus from '@/components/Gamefield/DeckStatus';
 
 export default {
   name: 'GameField',
-  components: {Shadow, Unit, Card}
+  components: {DeckStatus, Shadow, Unit, Card, Decorations}
 }
 </script>
 
@@ -48,6 +53,7 @@ export default {
   width: 100vw;
   height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .top {
@@ -60,6 +66,7 @@ export default {
   line-height: 55px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 10;
 }
 
 .angle {
@@ -80,29 +87,32 @@ export default {
 }
 
 .battlefield {
-  background: url("~@/assets/img/Backgrounds/Playground.png") no-repeat;
-  height: calc(100% - 390px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.player-field {
-  display: flex;
-  justify-content: space-around;
-  padding-bottom: 10px;
+  position: relative;
+  background: url("~@/assets/img/Backgrounds/BattleGround.png") no-repeat;
+  height: calc(100% - 250px);
 }
 
 .table {
   position: absolute;
   bottom: 0;
   background-color: #FFFFFF;
-  height: 390px;
+  height: 275px;
   width: 100%;
+  border-top: 4px solid #626262;
+
+  &__status {
+    position: absolute;
+    height: 245px;
+    top: 10px;
+    right: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
 }
 
 .hand {
-  margin: 33px auto 0;
+  margin: 10px auto 0;
   display: flex;
   justify-content: space-between;
   width: 1120px;
@@ -119,10 +129,43 @@ export default {
   line-height: 30px;
 }
 
-.player1, .player2 {
-  //position: relative;
-  //display: flex;
-  //justify-content: space-between;
-  //width: 800px;
+.player1 {
+  div[data-pos='1'] {
+    position: absolute;
+    left: 108px;
+    top: 313px;
+  }
+
+  div[data-pos='2'] {
+    position: absolute;
+    left: 408px;
+    top: 451px;
+  }
+
+  div[data-pos='3'] {
+    position: absolute;
+    left: 708px;
+    top: 347px;
+  }
+}
+
+.player2 {
+  div[data-pos='4'] {
+    position: absolute;
+    right: 108px;
+    top: 313px;
+  }
+
+  div[data-pos='5'] {
+    position: absolute;
+    right: 408px;
+    top: 451px;
+  }
+
+  div[data-pos='6'] {
+    position: absolute;
+    right: 708px;
+    top: 347px;
+  }
 }
 </style>
