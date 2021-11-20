@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ursula V2</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.1.3/dist/vuex.js"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+</head>
+<body>
+    <div id="app">
+        <img src="Background_Auth.png" alt="img">
+        <router-view></router-view>
+    </div>
+
+
+<!--    Pages-->
+    <script src="pages/auth.vue.js"></script>
+    <script src="pages/menu.vue.js"></script>
+
+    <script src="components.js"></script>
+    <script src="/magx/dev"></script>
+    <script src="/chatStore.js"></script>
+    <script src="/mosxStore.js"></script>
+    <script>
+      const store = new Vuex.Store({ modules: { sync: mosxStore, chatStore }})
+      const routes = [
+        {path: '/', component: Auth},
+        {path: '/menu', component: Menu}
+      ];
+
+      const router = new VueRouter({
+        routes: routes,
+        mode: 'history',
+        base: '/'
+      });
+
+      var app = new Vue({ el: '#app',  store, router})
+
+    </script>
+</body>
+</html>
