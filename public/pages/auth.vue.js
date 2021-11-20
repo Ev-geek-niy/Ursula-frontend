@@ -4,9 +4,9 @@ var Auth = {
     <div class="auth__container">
       <div class="auth__wrapper">
         <router-link :to="'/menu'">
-          <MenuButton>
-            Sign up
-          </MenuButton>
+            <MenuButton>
+              Sign up
+            </MenuButton>
         </router-link>
         <router-link to="">
           <MenuButton>
@@ -17,4 +17,9 @@ var Auth = {
     </div>
   </div>
   `,
+  methods: {
+    test: function () {
+      console.log('test')
+    }
+  }
 };

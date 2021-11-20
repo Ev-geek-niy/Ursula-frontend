@@ -1,18 +1,18 @@
 var Menu = {
   template: `
-  <div class="main-menu">
-    <div class="container">
-      <div class="wrapper">
+  <div class="menu">
+    <div class="menu__container">
+      <div class="menu__wrapper">
         <Hero change/>
 
-        <div class="menu">
-          <div class="menu-wrapper">
-            <MenuButton
-              @click="showModal"
-            >
+        <div class="sidemenu">
+          <div class="sidemenu__wrapper">
+            <MenuButton :on-click="showModal">
               Find a game
             </MenuButton>
-            <MenuButton>Game manual</MenuButton>
+            <MenuButton>
+              Game manual
+            </MenuButton>
             <router-link to="/change">
               <MenuButton>Setting</MenuButton>
             </router-link>
@@ -48,6 +48,9 @@ var Menu = {
     }
   },
   methods: {
+    test() {
+      console.log('test')
+    },
     showModal() {
       this.show = true
     },
