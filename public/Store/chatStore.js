@@ -10,7 +10,7 @@ const chatStore = {
     username: '',
     client: new MagX.Client({
       address: host.replace(/:.*/, ''),
-      port: 3001,
+      port: port,
       secure: protocol === 'https:',
       token,
       id,

@@ -14,32 +14,33 @@
         <router-view></router-view>
     </div>
 
-
-<!--    Pages-->
+    <!--    Pages-->
     <script src="pages/auth.vue.js"></script>
     <script src="pages/menu.vue.js"></script>
     <script src="pages/gamefield.vue.js"></script>
 
-    <script src="components.js"></script>
+    <!--    Components-->
+    <!--    UI-->
+    <script src="components/UI/MenuButton.vue.js"></script>
+    <script src="components/UI/CloseButton.vue.js"></script>
+    <script src="components/UI/Hero.vue.js"></script>
+    <script src="components/UI/LobbyField.vue.js"></script>
+
+    <!--    Modals-->
+    <script src="components/Modals/CreateLobby.vue.js"></script>
+    <script src="components/Modals/FindGame.vue.js"></script>
+    <script src="components/Modals/Lobby.vue.js"></script>
+
+    <!--    Gamefield-->
+    <script src="components/Gamefield/Decorations.vue.js"></script>
+    <script src="components/Gamefield/Card.vue.js"></script>
+    <script src="components/Gamefield/DeckStatus.vue.js"></script>
+    <script src="components/Gamefield/Unit.vue.js"></script>
+
+    <!--    Store-->
     <script src="/magx/dev"></script>
-    <script src="/chatStore.js"></script>
-    <script src="/mosxStore.js"></script>
-    <script>
-      const store = new Vuex.Store({ modules: { sync: mosxStore, chatStore }})
-      const routes = [
-        {path: '/', component: Auth},
-        {path: '/menu', component: Menu},
-        {path: '/game', component: Gamefield}
-      ];
-
-      const router = new VueRouter({
-        routes: routes,
-        mode: 'history',
-        base: '/'
-      });
-
-      var app = new Vue({ el: '#app',  store, router})
-
-    </script>
+    <script src="Store/chatStore.js"></script>
+    <script src="Store/mosxStore.js"></script>
+    <script src="App.js"></script>
 </body>
 </html>
