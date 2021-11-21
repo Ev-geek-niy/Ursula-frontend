@@ -7,7 +7,7 @@ Vue.component('Hero', {
     <div class="hero-wrapper">
       <img class="profile" :src="Starege" alt="Avatar">
       <div class="hero-descr">
-        <h2>Username</h2>
+        <h2>{{username}}</h2>
         <h3>Level 666</h3>
         <div class="hero-exp">
           <span>200/500</span></div>
@@ -38,6 +38,11 @@ Vue.component('Hero', {
     change: {
       type: Boolean,
       required: true
+    }
+  },
+  computed: {
+    username() {
+      return this.$store.getters.username
     }
   }
 })

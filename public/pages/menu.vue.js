@@ -7,7 +7,7 @@ var Menu = {
 
         <div class="sidemenu">
           <div class="sidemenu__wrapper">
-            <MenuButton :on-click="showModal">
+            <MenuButton :on-click="switchModal">
               Find a game
             </MenuButton>
             <MenuButton>
@@ -25,16 +25,17 @@ var Menu = {
         <div v-if="show || join" class="hide" :class="{'z-2': create}"></div>
         <FindGame
           v-if="show"
-          :onCloseModal="closeModal"
-          :showCreateLobby="showCreateLobby"
-          :joinLobby="joinLobby"
+          :onCloseModal="switchModal"
+          :showCreateLobby="switchCreateLobby"
+          :joinLobby="switchLobby"
         />
         <CreateLobby
           v-if="create"
-          :closeCreateLobby="closeCreateLobby"/>
+          :closeCreateLobby="switchCreateLobby"
+          :moveToLobby="moveToLobby"/>
         <Lobby
           v-if="join"
-          :quitLobby="quitLobby"
+          :quitLobby="switchLobby"
         />
       </div>
     </div>
@@ -51,25 +52,19 @@ var Menu = {
     test() {
       console.log('test')
     },
-    showModal() {
-      this.show = true
+    switchModal() {
+      this.show = !this.show
     },
-    closeModal() {
-      this.show = false
+    switchCreateLobby() {
+      this.create = !this.create
     },
-    showCreateLobby() {
-      this.create = true
+    switchLobby() {
+      this.join = !this.join
+      this.show = !this.show
     },
-    closeCreateLobby() {
-      this.create = false
-    },
-    joinLobby() {
-      this.join = true
-      this.show = false
-    },
-    quitLobby() {
-      this.join = false
-      this.show = true
+    moveToLobby() {
+      this.create = !this.create
+      this.join = !this.join
     }
   }
 }

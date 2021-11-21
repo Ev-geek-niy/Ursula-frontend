@@ -5,23 +5,11 @@ Vue.component('Lobby', {
     <div class="lobby__modal__wrapper">
       <div class="lobby__modal__descr">
         <p class="lobby__modal__title">Fight Club</p>
-        <p>Type: Private</p>
-        <p>Password: 12345</p>
+        <p>ID: {{roomID}}</p>
       </div>
 
       <ul class="lobby__modal__players">
-        <li class="lobby__modal__player">
-          <img class="lobby__modal__player__img" src="assets/img/Trooper/Trooper.png" alt="player1">
-          <div class="lobby__modal__player__descr">
-            <p class="lobby__modal__player__nickname">Boss of the gym</p>
-            <p>lvl: 3</p>
-            <p>Wins: 12</p>
-            <p>Losses: 7</p>
-          </div>
-        </li>
-        <li>
-          <p class="lobby__modal__players-waiting">waiting...</p>
-        </li>
+        <lobby-player v-for="(player, index) in users" :key="index" :player="player"/>
       </ul>
 
       <form action="">
@@ -33,8 +21,14 @@ Vue.component('Lobby', {
   </div>
   `,
   data() {
-    return {
-      // Trooper
+    return {}
+  },
+  computed: {
+    roomID() {
+      return this.$store.getters.room.id
+    },
+    users() {
+      return this.$store.state.sync.users
     }
   },
   props: {

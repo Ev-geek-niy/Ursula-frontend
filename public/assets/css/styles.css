@@ -1,4 +1,5 @@
 *, *::before, *::after {
+    font-family: 'Visitor', serif;
     box-sizing: inherit;
     padding: 0;
     margin: 0;
@@ -37,7 +38,6 @@ table {
 }
 
 body {
-    font-family: 'Visitor', serif;
     background-color: #C4C4C4;
 }
 
@@ -64,12 +64,12 @@ a {
 }
 
 .button:hover {
-     background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .button:active {
-     background: rgba(0, 0, 0, 0.1);
- }
+    background: rgba(0, 0, 0, 0.1);
+}
 
 /*LOBBY FIELD*/
 .lobbyField {
@@ -790,4 +790,35 @@ a {
     left: 1846px;
     top: 545px;
     z-index: 2;
+}
+
+
+/*SIGN UP*/
+.signUp {
+    position: relative;
+    height: 325px;
+    padding: 101px 26px 23px;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border-radius: 5px;
+    justify-content: space-between;
+}
+
+.signUp input {
+    padding: 13px 23px;
+    border: none;
+    height: 63px;
+    background: #C4C4C4;
+    border-radius: 5px;
+    font-size: 25px;
+}
+
+.signUp button {
+    border: none;
+    height: 38px;
+    background: #626262;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 25px;
 }
