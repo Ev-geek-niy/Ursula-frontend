@@ -283,13 +283,18 @@ a {
 }
 
 .lobby__modal__wrapper {
+    position: relative;
     padding-top: 50px;
     width: 737px;
     height: 100%;
     margin: 0 auto;
 }
 
-.lobby__modal form button {
+.lobby__modal__btn {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
     height: 94px;
     border-radius: 5px;
     font-family: 'Visitor', serif;
@@ -315,7 +320,9 @@ a {
     text-align: center;
 }
 
+
 .lobby__modal__players {
+    margin-top: 100px;
     list-style-type: none;
 }
 

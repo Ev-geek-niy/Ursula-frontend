@@ -9,14 +9,9 @@ Vue.component('Lobby', {
       </div>
 
       <ul class="lobby__modal__players">
-        <lobby-player v-for="(player, index) in users" :key="index" :player="player"/>
+        <lobby-player v-for="(player, index) in users" :key="index" :player="index"/>
       </ul>
-
-      <form>
-        <router-link to="/game">
-          <button>Start the game</button>
-        </router-link>
-      </form>
+        <button class="lobby__modal__btn">Start the game</button>
     </div>
   </div>
   `,
