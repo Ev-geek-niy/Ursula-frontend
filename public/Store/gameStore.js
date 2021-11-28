@@ -5,7 +5,7 @@ const serializer = MagX.SchemaSerializer
 const id = sessionStorage.getItem('sessionId')
 const token = sessionStorage.getItem('token')
 
-const chatStore = {
+const gameStore = {
   state: {
     username: '',
     client: new MagX.Client({
@@ -14,16 +14,16 @@ const chatStore = {
       secure: protocol === 'https:',
       token,
       id,
-      serializer
+      serializer,
     }),
+    rooms: null,
     room: null,
-    typing: false,
-    lastTypingTime: 0
   },
   getters: {
     username: ({username}) => username,
     room: ({room}) => room,
-    id: ({client}) => client && client.auth && client.auth.id || ''
+    rooms: ({rooms}) => rooms,
+    id: ({client}) => client && client.auth && client.auth.id || '',
   },
   mutations: {
     setUserName(state, name) {
@@ -32,29 +32,24 @@ const chatStore = {
     setRoom(state, room) {
       state.room = room
     },
-    setTyping(state, value) {
-      state.typing = value
-      if (value) {
-        state.lastTypingTime = Date.now()
-      }
-    },
+    setRooms(state, rooms) {
+      state.rooms = rooms
+    }
   },
   actions: {
-    async reconnect({state, dispatch, commit}) {
-      try {
-        const roomId = sessionStorage.getItem('roomId')
-        const username = sessionStorage.getItem('username')
-        const room = await state.client.reconnect(roomId)
-        console.log('Reconnected')
-        commit('setUserName', username)
+    async Rooms({state, commit}) {
+      const rooms = await state.client.getRooms('game').then(data => data)
+      commit('setRooms', rooms)
+
+    },
+    async Join({state, dispatch}, roomID) {
+      let room = await state.client.joinRoom(roomID)
+
+      if (room) {
         dispatch('handleRoom', room)
-      } catch (error) {
-        console.log('Cannot reconnect', error)
-        sessionStorage.removeItem('sessionId')
-        sessionStorage.removeItem('token')
-        sessionStorage.removeItem('username')
-        sessionStorage.removeItem('roomId')
-        commit('setUserName', '')
+        console.log('Joined room!')
+      } else {
+        console.log('Cannot join room!')
       }
     },
     async auth({commit, state}, data) {
@@ -70,20 +65,26 @@ const chatStore = {
         console.error(err)
       }
     },
-    async joinChat({state, dispatch}) {
+    async joinRoom({state, dispatch}) {
 
-      const rooms = await state.client.getRooms('mosx-chat')
+      const rooms = await state.client.getRooms('game')
 
       console.log('Avaliable rooms:', rooms)
       let room = rooms.length
         ? await state.client.joinRoom(rooms[0].id)
-        : await state.client.createRoom('mosx-chat')
+        : await state.client.createRoom('game')
 
       if (room) {
         dispatch('handleRoom', room)
         console.log('Joined room!')
       } else {
         console.log('Cannot join room!')
+      }
+    },
+    async createLobby({state, dispatch}) {
+      let room = await state.client.createRoom('game')
+      if (room) {
+        dispatch('handleRoom', room)
       }
     },
     handleRoom({commit, dispatch}, room) {
@@ -100,32 +101,9 @@ const chatStore = {
         dispatch('mosx_snapshot', snapshot)
       })
     },
-    sendMessage({state}, {message, to}) {
-      state.room.send('message', {message, to})
-    },
-    startTyping({state, commit, dispatch}) {
-      if (!state.typing) {
-        state.room.send('typing');
-        commit('setTyping', true)
-        dispatch('checkTyping', 1000)
-      } else {
-        commit('setTyping', true)
-      }
-    },
-    stopTyping({state, commit}) {
-      if (state.typing) {
-        state.room.send('idle')
-        commit('setTyping', false)
-      }
-    },
-    checkTyping({state, dispatch}, inteval = 0) {
-      setTimeout(() => {
-        if (Date.now() - state.lastTypingTime < inteval) {
-          dispatch('checkTyping', inteval)
-        } else {
-          dispatch('stopTyping')
-        }
-      }, inteval)
+    async getRooms({state}) {
+      const rooms = await state.client.getRooms('game')
+      console.log(rooms)
     }
   }
 }

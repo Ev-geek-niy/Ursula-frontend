@@ -19,7 +19,7 @@ Vue.component('CreateLobby', {
       this.closeCreateLobby()
     },
     async submit() {
-      await this.$store.dispatch('joinChat')
+      await this.$store.dispatch('createLobby')
       this.moveToLobby()
     }
   },

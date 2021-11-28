@@ -1,7 +1,8 @@
 const store = new Vuex.Store({
   modules: {
-    sync: mosxStore,
-    chatStore
+    mosxStoreSync: mosxStore,
+    gameStore: gameStore,
+    gamefield: gamefieldStore
   }
 })
 

@@ -27,14 +27,6 @@ var Auth = {
     },
     switchLogin() {
       this.login = !this.login
-    },
-    async auth() {
-      try {
-        await this.$store.dispatch('auth', {username: 'Test Name'})
-        router.push({path: '/menu'})
-      } catch (e) {
-        console.log(e)
-      }
     }
   }
 };

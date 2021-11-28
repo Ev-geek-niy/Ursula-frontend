@@ -12,9 +12,9 @@ Vue.component('Lobby', {
         <lobby-player v-for="(player, index) in users" :key="index" :player="player"/>
       </ul>
 
-      <form action="">
+      <form>
         <router-link to="/game">
-          <button type="submit">Start the game</button>
+          <button>Start the game</button>
         </router-link>
       </form>
     </div>
@@ -28,7 +28,7 @@ Vue.component('Lobby', {
       return this.$store.getters.room.id
     },
     users() {
-      return this.$store.state.sync.users
+      return this.$store.state.mosxStoreSync.players
     }
   },
   props: {
@@ -40,6 +40,9 @@ Vue.component('Lobby', {
   methods: {
     handleQuitLobby() {
       this.quitLobby()
+    },
+    async getRooms() {
+      await this.$store.dispatch('getRooms')
     }
   }
 })
