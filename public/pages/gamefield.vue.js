@@ -6,21 +6,22 @@ var Gamefield = {
       <div class="angle angle-right"></div>
       Menu
     </div>
-    <PlayerStatus>Player 1</PlayerStatus>
-    <PlayerStatus mirror>Player 2</PlayerStatus>
+    <PlayerStatus
+      v-for="(player, index) in players"
+      :key="index"
+      :mirror="index !== you"
+    >
+        {{index}}
+    </PlayerStatus>
     <div class="battlefield">
       <Decorations/>
       <div class="player-field">
-        <div class="player1">
-          <Unit data-pos="1"/>
-          <Unit data-pos="2"/>
-          <Unit data-pos="3"/>
-        </div>
-        <div class="player2">
-          <Unit data-pos="4" mirror/>
-          <Unit data-pos="5" mirror/>
-          <Unit data-pos="6" mirror/>
-        </div>
+        <Unit v-for="(unit, index) in field"
+        v-if="unit.creature"
+        :data-pos="index"
+        :isCommander="unit.creature.isCommander"
+        :mirror="index >= 3 ? true : false"
+        />
       </div>
     </div>
     <div class="table">
@@ -35,8 +36,27 @@ var Gamefield = {
         <DeckStatus>Cards left</DeckStatus>
         <DeckStatus>Discards</DeckStatus>
       </div>
+        <button @click="create"
+          style="height: 50px; width: 100px; position: absolute; bottom: 0"
+        >Create</button>
 <!--      <div class="endturn">End turn</div>-->
-    </div>
+      </div>
   </div>
-  `
+  `,
+  computed: {
+    players() {
+      return this.$store.state.mosxStoreSync.players
+    },
+    you() {
+      return this.$store.getters.id
+    },
+    field() {
+      return this.$store.state.mosxStoreSync.field
+    }
+  },
+  methods: {
+    create() {
+      this.$store.dispatch('createCreature')
+    }
+  }
 }

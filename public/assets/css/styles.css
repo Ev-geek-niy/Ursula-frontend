@@ -325,12 +325,22 @@ a {
 
 .lobby__modal__descr {
     font-size: 30px;
+    height: 156px;
     text-align: center;
 }
 
+.lobby__modal__lock {
+    padding-top: 20px;
+    width: 31px;
+    height: 59px;
+}
+
+img .lobby__modal__lock {
+    width: 100%;
+}
 
 .lobby__modal__players {
-    margin-top: 100px;
+    margin-top: 40px;
     list-style-type: none;
 }
 
@@ -423,7 +433,7 @@ a {
 .unit {
     display: inline-block;
     cursor: pointer;
-    height: 200px;
+    height: 352px;
     z-index: 5;
 }
 
@@ -604,37 +614,37 @@ a {
     line-height: 30px;
 }
 
-.player1 div[data-pos='1'] {
+.player-field div[data-pos='0'] {
     position: absolute;
     left: 108px;
     top: 313px;
 }
 
-.player1 div[data-pos='2'] {
+.player-field div[data-pos='1'] {
     position: absolute;
     left: 408px;
     top: 451px;
 }
 
-.player1 div[data-pos='3'] {
+.player-field div[data-pos='2'] {
     position: absolute;
     left: 708px;
     top: 347px;
 }
 
-.player2 div[data-pos='4'] {
+.player-field div[data-pos='5'] {
     position: absolute;
     right: 108px;
     top: 313px;
 }
 
-.player2 div[data-pos='5'] {
+.player-field div[data-pos='4'] {
     position: absolute;
     right: 408px;
     top: 451px;
 }
 
-.player2 div[data-pos='6'] {
+.player-field div[data-pos='3'] {
     position: absolute;
     right: 708px;
     top: 347px;

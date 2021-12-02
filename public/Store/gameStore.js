@@ -1,4 +1,3 @@
-// const MagX = require('magx-client');
 const {host, port, protocol} = window.document.location
 
 const serializer = MagX.SchemaSerializer
@@ -83,6 +82,7 @@ const gameStore = {
     },
     async createLobby({state, dispatch}, status) {
       let room = await state.client.createRoom('game')
+
       if (room) {
         dispatch('handleRoom', room)
       }

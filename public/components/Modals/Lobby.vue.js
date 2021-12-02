@@ -1,3 +1,5 @@
+const lock = 'assets/img/Icons/locker.png'
+
 Vue.component('Lobby', {
   template: `
   <div class="lobby__modal">
@@ -6,6 +8,8 @@ Vue.component('Lobby', {
       <div class="lobby__modal__descr">
         <p class="lobby__modal__title">Fight Club</p>
         <p>ID: {{roomID}}</p>
+        <img class="lobby__modal__lock" v-if="Object.keys(users).length === 2" :src="lock" alt="lock">
+        <div v-else class="lobby__modal__lock"></div>
       </div>
 
       <ul class="lobby__modal__players">
@@ -16,7 +20,9 @@ Vue.component('Lobby', {
   </div>
   `,
   data() {
-    return {}
+    return {
+      lock
+    }
   },
   computed: {
     roomID() {

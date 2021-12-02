@@ -39,6 +39,6 @@ const mosxStore = {
     mosx_patch({commit}, {op, value, path}) {
       path = path.substr(1).split('/')
       commit(op, {value, key: path.pop(), path})
-    }
+    },
   }
 }
