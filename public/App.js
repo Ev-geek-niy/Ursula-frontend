@@ -2,7 +2,6 @@ const store = new Vuex.Store({
   modules: {
     mosxStoreSync: mosxStore,
     gameStore: gameStore,
-    gamefield: gamefieldStore
   }
 })
 

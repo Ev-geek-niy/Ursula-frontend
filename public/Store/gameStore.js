@@ -81,7 +81,7 @@ const gameStore = {
         console.log('Cannot join room!')
       }
     },
-    async createLobby({state, dispatch}) {
+    async createLobby({state, dispatch}, status) {
       let room = await state.client.createRoom('game')
       if (room) {
         dispatch('handleRoom', room)

@@ -1,4 +1,4 @@
-var Gamefield =  {
+var Gamefield = {
   template: `
   <div class="game__container">
     <div class="top">
@@ -6,6 +6,8 @@ var Gamefield =  {
       <div class="angle angle-right"></div>
       Menu
     </div>
+    <PlayerStatus>Player 1</PlayerStatus>
+    <PlayerStatus mirror>Player 2</PlayerStatus>
     <div class="battlefield">
       <Decorations/>
       <div class="player-field">

@@ -18,6 +18,7 @@ Vue.component('FindGame', {
             class="find__modal__list-item"
             :class="{'find__modal__list-item-select': selected === room.id}"
             :on-click="() => onChangeLobby(room.id)"
+            :privatised="room.locked"
           >
           {{ room.id }}
           </LobbyField>

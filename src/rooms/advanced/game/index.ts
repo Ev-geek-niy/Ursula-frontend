@@ -22,15 +22,13 @@ export class GameRoom extends Room<GameState> {
     console.log(`GameRoom received message from ${client.id} with type: `, type, data)
     if(this.state.gameState === "game"){
       if (type === "executeCardEffect") {
-        this.state.executeCardEffect(client.id, data.id)
+        // todo получать target creature через положение (???)
+        this.state.executeCardEffect(client.id, data.id, data.target)
+      }
+      if (type === "attack") {
+        this.state.attack(data.source,data.target)
       }
     }
-  }
-
-  public startGame() {
-    this.state.gameState = "game"
-    this.state.currentTurn = this.state.changeTurn()
-    console.log(this.state.currentTurn)
   }
 
   public onJoin(client: Client, params: any) {
@@ -39,7 +37,7 @@ export class GameRoom extends Room<GameState> {
 
     if (this.clients.size >= 2) {
       this.lock()
-      this.startGame()
+      this.state.startGame()
     }
   }
 

@@ -11,7 +11,7 @@ Vue.component('Lobby', {
       <ul class="lobby__modal__players">
         <lobby-player v-for="(player, index) in users" :key="index" :player="index"/>
       </ul>
-        <button class="lobby__modal__btn">Start the game</button>
+        <button class="lobby__modal__btn" @click="start">Start the game</button>
     </div>
   </div>
   `,
@@ -38,6 +38,9 @@ Vue.component('Lobby', {
     },
     async getRooms() {
       await this.$store.dispatch('getRooms')
+    },
+    start() {
+      router.push({path: '/game'})
     }
   }
 })

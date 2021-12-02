@@ -3,8 +3,13 @@ Vue.component('CreateLobby', {
   <div class="create__modal">
     <CloseButton :on-click="handleCloseCreateModal"/>
     <div class="create__modal-form">
-      <MenuButton class="create__modal-btn">Public</MenuButton>
-      <MenuButton class="create__modal-btn">Private</MenuButton>
+      <p v-for="(text, index) in status" 
+         :key="index"
+         class="create__modal-btn"
+         :class="{'create__modal-btn-selected' : selected === index}"
+         @click="() => handleStatus(index)">
+        {{text}}
+      </p>
       <button id="createLobby" @click="submit">Create</button>
     </div>
   </div>
@@ -12,6 +17,7 @@ Vue.component('CreateLobby', {
   data() {
     return {
       selected: null,
+      status: ['Public', 'Private']
     }
   },
   methods: {
@@ -19,8 +25,11 @@ Vue.component('CreateLobby', {
       this.closeCreateLobby()
     },
     async submit() {
-      await this.$store.dispatch('createLobby')
+      await this.$store.dispatch('createLobby', this.status[this.selected])
       this.moveToLobby()
+    },
+    handleStatus(index) {
+      this.selected = index
     }
   },
   props: {
