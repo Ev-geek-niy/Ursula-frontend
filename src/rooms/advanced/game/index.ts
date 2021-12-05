@@ -22,11 +22,14 @@ export class GameRoom extends Room<GameState> {
     console.log(`GameRoom received message from ${client.id} with type: `, type, data)
     if(this.state.gameState === "game"){
       if (type === "executeCardEffect") {
-        // todo получать target creature через положение (???)
-        this.state.executeCardEffect(client.id, data.id, data.target)
+        
+        this.state.executeCardEffect(client.id, data.id, this.state.field[data.index])
       }
       if (type === "attack") {
-        this.state.attack(data.source,data.target)
+        this.state.attack(client.id ,this.state.field[data.source],this.state.field[data.index])
+      }
+      if (type === "changeTurn") {
+        this.state.changeTurn();
       }
     }
   }

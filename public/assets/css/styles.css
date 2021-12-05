@@ -452,7 +452,7 @@ img .lobby__modal__lock {
     background-color: red;
     border: 2px solid #FFFFFF;
     bottom: -25px;
-    left: -17px;
+    left: 132px;
 }
 
 .unit__btn {
@@ -616,8 +616,8 @@ img .lobby__modal__lock {
 
 .player-field div[data-pos='0'] {
     position: absolute;
-    left: 108px;
-    top: 313px;
+    left: -48px;
+    top: 162px;
 }
 
 .player-field div[data-pos='1'] {
@@ -634,8 +634,8 @@ img .lobby__modal__lock {
 
 .player-field div[data-pos='5'] {
     position: absolute;
-    right: 108px;
-    top: 313px;
+    right: 22px;
+    top: 179px;
 }
 
 .player-field div[data-pos='4'] {
