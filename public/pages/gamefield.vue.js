@@ -38,7 +38,9 @@ var Gamefield = {
       </div>
         <button @click="create"
           style="height: 50px; width: 100px; position: absolute; bottom: 0"
-        >Create</button>
+        >
+        Create Trooper
+        </button>
 <!--      <div class="endturn">End turn</div>-->
       </div>
   </div>
@@ -51,12 +53,17 @@ var Gamefield = {
       return this.$store.getters.id
     },
     field() {
-      return this.$store.state.mosxStoreSync.field
+      const playersId = Object.keys(this.players)
+      if (playersId[0] === this.you) {
+        return this.$store.state.mosxStoreSync.field
+      } else {
+        return this.$store.state.mosxStoreSync.field.reverse()
+      }
     }
   },
   methods: {
     create() {
-      this.$store.dispatch('createCreature')
+      this.$store.dispatch('createCreature', {id: 9, index: 2})
     }
   }
 }
