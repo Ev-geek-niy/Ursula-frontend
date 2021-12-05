@@ -434,7 +434,6 @@ img .lobby__modal__lock {
     display: inline-block;
     cursor: pointer;
     height: 352px;
-    z-index: 5;
 }
 
 .unit img {
@@ -449,10 +448,28 @@ img .lobby__modal__lock {
     position: absolute;
     width: 132px;
     height: 15px;
-    background-color: red;
+    background-color: green;
     border: 2px solid #FFFFFF;
     bottom: -25px;
     left: 132px;
+}
+
+.unit__health {
+    position: absolute;
+    bottom: -15px;
+    left: 82px;
+    font-size: 40px;
+    color: green;
+    -webkit-text-stroke: 2px #000000;
+}
+
+.unit__attack {
+    position: absolute;
+    bottom: -15px;
+    left: 195px;
+    font-size: 40px;
+    color: #ff0000;
+    -webkit-text-stroke: 2px #000000;
 }
 
 .unit__btn {
@@ -578,10 +595,11 @@ img .lobby__modal__lock {
 }
 
 .table {
+    padding-top: 15px;
     position: absolute;
     bottom: 0;
     background-color: #FFFFFF;
-    height: 275px;
+    height: 380px;
     width: 100%;
     border-top: 4px solid #626262;
 }
@@ -589,7 +607,7 @@ img .lobby__modal__lock {
 .table__status {
     position: absolute;
     height: 245px;
-    top: 10px;
+    top: 25px;
     right: 50px;
     display: flex;
     justify-content: space-between;
@@ -616,38 +634,40 @@ img .lobby__modal__lock {
 
 .player-field div[data-pos='0'] {
     position: absolute;
-    left: -48px;
-    top: 162px;
+    left: -7px;
+    top: 167px;
 }
 
 .player-field div[data-pos='1'] {
+    z-index: 7;
     position: absolute;
-    left: 408px;
-    top: 451px;
+    left: 302px;
+    top: 333px;
 }
 
 .player-field div[data-pos='2'] {
     position: absolute;
-    left: 708px;
-    top: 347px;
+    left: 573px;
+    top: 236px;
+}
+
+.player-field div[data-pos='3'] {
+    position: absolute;
+    right: 567px;
+    top: 220px;
+}
+
+.player-field div[data-pos='4'] {
+    z-index: 7;
+    position: absolute;
+    right: 276px;
+    top: 314px;
 }
 
 .player-field div[data-pos='5'] {
     position: absolute;
     right: 22px;
     top: 179px;
-}
-
-.player-field div[data-pos='4'] {
-    position: absolute;
-    right: 408px;
-    top: 451px;
-}
-
-.player-field div[data-pos='3'] {
-    position: absolute;
-    right: 708px;
-    top: 347px;
 }
 
 /*DECORATIONS*/
@@ -696,7 +716,7 @@ img .lobby__modal__lock {
 #sup3 {
     left: 528px;
     top: 477px;
-    z-index: 2;
+    z-index: 6;
 }
 
 #sup4 {
@@ -782,7 +802,7 @@ img .lobby__modal__lock {
 #bags1 {
     left: 1318px;
     top: 496px;
-    z-index: 2;
+    z-index: 6;
 }
 
 #bags2 {
@@ -902,4 +922,67 @@ img .lobby__modal__lock {
     width: 100px;
     height: 100px;
     border: 4px solid #626262;
+}
+
+.unit__block {
+    z-index: 5;
+    cursor: pointer;
+    height: 350px;
+    width: 320px;
+}
+
+.tile {
+    width: 115px;
+    height: 180px;
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    border-bottom: solid 7px rgba(0, 0, 0, 0.7);
+}
+
+.tile:hover {
+    border-bottom: solid 7px rgba(255, 255, 255, 0.7);
+}
+
+.selectedTile {
+    border-bottom: solid 7px rgba(210, 3, 3, 0.7);
+}
+
+.selectedEnemyTile {
+    border-bottom: solid 7px rgba(141, 3, 210, 0.7);
+}
+
+.fantomTile {
+    border-bottom: solid 7px rgba(224, 206, 1, 0.0);
+}
+
+div[data-pos='0'] .tile {
+    bottom: 18px;
+    left: 100px;
+}
+
+div[data-pos='1'] .tile {
+    bottom: 18px;
+    left: 100px;
+}
+
+div[data-pos='2'] .tile {
+    bottom: 18px;
+    left: 100px;
+}
+
+div[data-pos='3'] .tile {
+    bottom: 18px;
+    left: 100px;
+}
+
+div[data-pos='4'] .tile {
+    bottom: 18px;
+    left: 100px;
+}
+
+div[data-pos='5'] .tile {
+    bottom: 18px;
+    left: 100px;
 }

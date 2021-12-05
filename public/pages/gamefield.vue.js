@@ -17,20 +17,21 @@ var Gamefield = {
       <Decorations/>
       <div class="player-field">
         <Unit v-for="(unit, index) in field"
-        v-if="unit.creature"
         :data-pos="index"
-        :isCommander="unit.creature.isCommander"
+        :unit="unit"
         :mirror="index >= 3 ? true : false"
+        :index="index"
+        :selectedTile="selectedTile"
+        :currentTurn="currentTurn"
+        :on-click="() => handleTile(index)"
         />
       </div>
     </div>
     <div class="table">
       <div class="hand">
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
+        <Card v-for="card in hand"
+          
+        />
       </div>
       <div class="table__status">
         <DeckStatus>Cards left</DeckStatus>
@@ -41,10 +42,17 @@ var Gamefield = {
         >
         Create Trooper
         </button>
-<!--      <div class="endturn">End turn</div>-->
+      <div class="endturn">End turn</div>
       </div>
   </div>
   `,
+  data() {
+    return {
+      hand: [1, 2, 3, 4, 5],
+      selectedCard: null,
+      selectedTile: null
+    }
+  },
   computed: {
     players() {
       return this.$store.state.mosxStoreSync.players
@@ -59,11 +67,17 @@ var Gamefield = {
       } else {
         return this.$store.state.mosxStoreSync.field.reverse()
       }
+    },
+    currentTurn() {
+      return this.$store.state.mosxStoreSync.currentTurn
     }
   },
   methods: {
     create() {
-      this.$store.dispatch('createCreature', {id: 9, index: 2})
+      this.$store.dispatch('createCreature', {id: 9, index: this.selectedTile})
+    },
+    handleTile(index) {
+      this.selectedTile = index
     }
   }
 }
