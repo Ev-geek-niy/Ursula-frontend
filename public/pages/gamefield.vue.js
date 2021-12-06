@@ -15,16 +15,27 @@ var Gamefield = {
     </PlayerStatus>
     <div class="battlefield">
       <Decorations/>
-      <div class="player-field">
+      <div class="player-field" v-if="firstPlayer">
         <Unit v-for="(unit, index) in field"
-        :data-pos="index"
-        :unit="unit"
-        :mirror="index >= 3 ? true : false"
-        :index="index"
-        :selectedTile="selectedTile"
-        :currentTurn="currentTurn"
-        :on-click="() => handleTile(index)"
-        />
+          :data-pos="index"
+          :unit="unit"
+          :mirror="index >= 3 ? true : false"
+          :index="index"
+          :selectedTile="selectedTile"
+          :currentTurn="currentTurn"
+          :on-click="() => handleTile(index)"
+          />
+      </div>
+      <div class="player-field" v-else>
+        <Unit v-for="(unit, index) in reversedField"
+          :data-pos="5 - index"
+          :unit="unit"
+          :mirror="index < 3 ? true : false"
+          :index="5 - index"
+          :selectedTile="selectedTile"
+          :currentTurn="currentTurn"
+          :on-click="() => handleTile(index)"
+          />
       </div>
     </div>
     <div class="table">
@@ -54,6 +65,13 @@ var Gamefield = {
     }
   },
   computed: {
+    reversedField() {
+      let reversedField_ = this.$store.state.mosxStoreSync.field.reverse();
+      return reversedField_
+    },
+    firstPlayer() {
+      return Object.keys(this.players)[0] === this.you
+    },
     players() {
       return this.$store.state.mosxStoreSync.players
     },
@@ -65,7 +83,7 @@ var Gamefield = {
       if (playersId[0] === this.you) {
         return this.$store.state.mosxStoreSync.field
       } else {
-        return this.$store.state.mosxStoreSync.field.reverse()
+        return this.$store.state.mosxStoreSync.field
       }
     },
     currentTurn() {
