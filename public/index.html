@@ -1,50 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Ursula V2</title>
-    <link rel="stylesheet" href="assets/css/fonts.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
-    <script src="https://unpkg.com/vuex@3.1.3/dist/vuex.js"></script>
-    <script src="https://unpkg.com/vue-router"></script>
+  <meta charset="UTF-8">
+  <title>Ursula V2</title>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+  <script src="https://unpkg.com/vuex@3.1.3/dist/vuex.js"></script>
+  <script src="https://unpkg.com/vue-router"></script>
 </head>
 <body>
-    <div id="app">
-        <router-view></router-view>
-    </div>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 
-    <!--    Pages-->
-    <script src="pages/auth.vue.js"></script>
-    <script src="pages/menu.vue.js"></script>
-    <script src="pages/gamefield.vue.js"></script>
+  <!--    Pages-->
+  <script src="pages/auth.vue.js"></script>
+  <script src="pages/menu.vue.js"></script>
+  <script src="pages/gamefield.vue.js"></script>
 
-    <!--    Components-->
-    <!--    UI-->
-    <script src="components/UI/MenuButton.vue.js"></script>
-    <script src="components/UI/CloseButton.vue.js"></script>
-    <script src="components/UI/Hero.vue.js"></script>
-    <script src="components/UI/LobbyField.vue.js"></script>
-    <script src="components/UI/LobbyPlayer.vue.js"></script>
+  <!--    Components-->
+  <!--    UI-->
+  <script src="components/UI/MenuButton.vue.js"></script>
+  <script src="components/UI/CloseButton.vue.js"></script>
+  <script src="components/UI/Hero.vue.js"></script>
+  <script src="components/UI/LobbyField.vue.js"></script>
+  <script src="components/UI/LobbyPlayer.vue.js"></script>
 
-    <!--    Modals-->
-    <script src="components/Modals/CreateLobby.vue.js"></script>
-    <script src="components/Modals/FindGame.vue.js"></script>
-    <script src="components/Modals/Lobby.vue.js"></script>
-    <script src="components/Modals/SignUp.vue.js"></script>
-    <script src="components/Modals/Login.vue.js"></script>
+  <!--    Modals-->
+  <script src="components/Modals/CreateLobby.vue.js"></script>
+  <script src="components/Modals/FindGame.vue.js"></script>
+  <script src="components/Modals/Lobby.vue.js"></script>
+  <script src="components/Modals/SignUp.vue.js"></script>
+  <script src="components/Modals/Login.vue.js"></script>
 
-    <!--    Gamefield-->
-    <script src="components/Gamefield/Decorations.vue.js"></script>
-    <script src="components/Gamefield/Card.vue.js"></script>
-    <script src="components/Gamefield/DeckStatus.vue.js"></script>
-    <script src="components/Gamefield/Unit.vue.js"></script>
-    <script src="components/Gamefield/PlayerStatus.vue.js"></script>
+  <!--    Gamefield-->
+  <script src="components/Gamefield/Decorations.vue.js"></script>
+  <script src="components/Gamefield/Card.vue.js"></script>
+  <script src="components/Gamefield/DeckStatus.vue.js"></script>
+  <script src="components/Gamefield/Unit.vue.js"></script>
+  <script src="components/Gamefield/Commander.vue.js"></script>
+  <script src="components/Gamefield/EmptyTile.vue.js"></script>
+  <script src="components/Gamefield/PlayerStatus.vue.js"></script>
 
-    <!--    Store-->
-    <script src="/magx/dev"></script>
-    <script src="Store/gameStore.js"></script>
-    <script src="Store/mosxStore.js"></script>
-    <script src="App.js"></script>
+  <!--    Store-->
+  <script src="/magx/dev"></script>
+  <script src="Store/gameStore.js"></script>
+  <script src="Store/mosxStore.js"></script>
+  <script src="App.js"></script>
 </body>
 </html>

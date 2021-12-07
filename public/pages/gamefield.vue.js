@@ -13,10 +13,12 @@ var Gamefield = {
     >
         {{index}}
     </PlayerStatus>
+    {{reversedField}}
     <div class="battlefield">
       <Decorations/>
       <div class="player-field" v-if="firstPlayer">
         <Unit v-for="(unit, index) in field"
+          v-if="unit.creature && !unit.creature.isCommander"
           :data-pos="index"
           :unit="unit"
           :mirror="index >= 3 ? true : false"
@@ -25,17 +27,54 @@ var Gamefield = {
           :currentTurn="currentTurn"
           :on-click="() => handleTile(index)"
           />
+        <Commander v-for="(unit, index) in field"
+          v-if="unit.creature && unit.creature.isCommander"
+          :data-pos="index"
+          :unit="unit"
+          :mirror="index >= 3 ? true : false"
+          :index="index"
+          :selectedTile="selectedTile"
+          :currentTurn="currentTurn"
+          :on-click="() => handleTile(index)"
+        />
+        <EmptyTile v-for="(unit, index) in field"
+         v-if="!unit.creature"
+         :data-pos="index"
+         :mirror="index >= 3 ? true : false"
+         :index="index"
+         :selectedTile="selectedTile"
+         :on-click="() => handleTile(index)"
+        />
       </div>
       <div class="player-field" v-else>
         <Unit v-for="(unit, index) in reversedField"
+          v-if="unit.creature && !unit.creature.isCommander"
           :data-pos="5 - index"
           :unit="unit"
           :mirror="index < 3 ? true : false"
           :index="5 - index"
           :selectedTile="selectedTile"
           :currentTurn="currentTurn"
-          :on-click="() => handleTile(index)"
-          />
+          :on-click="() => handleTile(5 - index)"
+        />
+        <Commander v-for="(unit, index) in reversedField"
+          v-if="unit.creature && unit.creature.isCommander"
+          :data-pos="5 - index"
+          :unit="unit"
+          :mirror="index < 3 ? true : false"
+          :index="5 - index"
+          :selectedTile="selectedTile"
+          :currentTurn="currentTurn"
+          :on-click="() => handleTile(5 - index)"
+        />
+        <EmptyTile v-for="(unit, index) in field"
+         v-if="!unit.creature"
+         :data-pos="5 - index"
+         :mirror="index < 3 ? true : false"
+         :index="5 - index"
+         :selectedTile="selectedTile"
+         :on-click="() => handleTile(5 - index)"
+        />
       </div>
     </div>
     <div class="table">
@@ -66,8 +105,8 @@ var Gamefield = {
   },
   computed: {
     reversedField() {
-      let reversedField_ = this.$store.state.mosxStoreSync.field.reverse();
-      return reversedField_
+      let reversedField_ = this.$store.state.mosxStoreSync.field
+      return reversedField_.slice().reverse()
     },
     firstPlayer() {
       return Object.keys(this.players)[0] === this.you
