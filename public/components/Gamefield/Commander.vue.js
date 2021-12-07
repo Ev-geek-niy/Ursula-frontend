@@ -1,11 +1,8 @@
-// Trooper
-const TrooperCalm = 'assets/img/Trooper/Trooper.png'
-const TrooperDeath = 'assets/img/Trooper/Death.gif'
-const TrooperHit = 'assets/img/Trooper/Hit.gif'
-const TrooperShootingAndCovering = 'assets/img/Trooper/Shooting-and-covering.gif'
-const TrooperSpawn = 'assets/img/Trooper/Teleportation.gif'
+// Commander
+const CommanderCalm = 'assets/img/Commander/Commander.png'
+const CommanderSpawn = 'assets/img/Commander/Spawn.gif'
 
-Vue.component('Unit', {
+Vue.component('Commander', {
   template: `
   <div class="unit__block" @click="handleClick">
     <div class="unit">
@@ -32,11 +29,8 @@ Vue.component('Unit', {
   `,
   data() {
     return {
-      Calm: TrooperCalm,
-      Death: TrooperDeath,
-      Shooting: TrooperShootingAndCovering,
-      Hit: TrooperHit,
-      Spawn: TrooperSpawn,
+      Calm: CommanderCalm,
+      Spawn: CommanderSpawn,
       currentState: this.Calm
     }
   },
