@@ -27,11 +27,11 @@ var Gamefield = {
           />
       </div>
       <div class="player-field" v-else>
-        <Unit v-for="(unit, index) in reversedField"
-          :data-pos="5 - index"
+        <Unit v-for="(unit, index) in field"
+          :data-pos="index == 5 || index == 0 ? index : 5 - index"
           :unit="unit"
-          :mirror="index < 3 ? true : false"
-          :index="5 - index"
+          :mirror="[1,2,5].includes(index) ? true : false"
+          :index="index"
           :selectedTile="selectedTile"
           :currentTurn="currentTurn"
           :on-click="() => handleTile(index)"
@@ -61,12 +61,14 @@ var Gamefield = {
     return {
       hand: [1, 2, 3, 4, 5],
       selectedCard: null,
-      selectedTile: null
+      selectedTile: null,
+      reversed: false,
     }
   },
   computed: {
     reversedField() {
-      let reversedField_ = this.$store.state.mosxStoreSync.field.reverse();
+      let reversedField_ = this.$store.state.mosxStoreSync.field.reverse()
+      console.log(reversedField_)
       return reversedField_
     },
     firstPlayer() {
@@ -83,7 +85,13 @@ var Gamefield = {
       if (playersId[0] === this.you) {
         return this.$store.state.mosxStoreSync.field
       } else {
-        return this.$store.state.mosxStoreSync.field
+        if(!this.reversed) {
+          let reversedField_ = this.$store.state.mosxStoreSync.field
+          console.log(reversedField_)
+          this.reversed = true
+          return reversedField_.reverse()
+        }
+        return reversedField_
       }
     },
     currentTurn() {
@@ -92,7 +100,13 @@ var Gamefield = {
   },
   methods: {
     create() {
-      this.$store.dispatch('createCreature', {id: 9, index: this.selectedTile})
+      // выбран коммандир?
+      if(!this.firstPlayer) {
+        if(this.selectedTile == 0 || this.selectedTile == 5) {
+          this.selectedTile = 5 - this.selectedTile
+        }
+      }
+      this.$store.dispatch('createCreature', {id: 9, index: this.selectedTile })
     },
     handleTile(index) {
       this.selectedTile = index

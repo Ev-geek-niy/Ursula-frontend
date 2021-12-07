@@ -128,7 +128,7 @@ export class GameState {
 
   public startGame() {
     this.playerA.commander = new Creature(50, -1, true, new Weapon())
-    this.playerB.commander = new Creature(50, -1, true, new Weapon())
+    this.playerB.commander = new Creature(50, -1, false, new Weapon())
     this.field[0].creature = this.playerA.commander
     this.field[5].creature = this.playerB.commander
     this.playerA.fieldpart = [0, 1, 2]
