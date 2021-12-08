@@ -3,15 +3,28 @@ const trooperCard = '/assets/img/Cards/trooper_card.gif'
 
 Vue.component('Card', {
   template: `
-  <img
-    class="card"
-    :src="cardImg"
-    alt="card">
+  <div class="card" :class="selected" @click="handleClick">
+    <img
+      :src="cardImg"
+      alt="card">
+  </div>
   `,
   data() {
     return {
       cardImg: trooperCard
     }
   },
-  props: {}
+  computed: {
+    selected() {
+      return {
+        selectedCard: this.selectedCard === this.id
+      }
+    }
+  },
+  props: ['onClick', 'selectedCard', 'id'],
+  methods: {
+    handleClick() {
+      this.onClick()
+    }
+  }
 })

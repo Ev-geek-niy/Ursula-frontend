@@ -42,46 +42,13 @@ Vue.component('Unit', {
   },
   computed: {
     unitTileClass() {
-      // fantomTile: this.selectedFriendTile !== this.index,
       return {
         selectedFriendTile: this.selectedFriendTile === this.index,
         selectedEnemyTile: this.selectedEnemyTile === this.index
       }
     }
   },
-  props: {
-    mirror: {
-      type: Boolean,
-    },
-    unit: {
-      type: Object,
-      required: true
-    },
-    index: {
-      type: Number,
-      required: true
-    },
-    selectedTile: {
-      type: Number,
-      required: true
-    },
-    selectedFriendTile: {
-      type: Number,
-      required: true
-    },
-    selectedEnemyTile: {
-      type: Number,
-      required: true
-    },
-    onClick: {
-      type: Function,
-      required: true
-    },
-    currentTurn: {
-      type: String,
-      required: true
-    }
-  },
+  props: ['mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
   methods: {
     changeState(state) {
       this.currentState = state + '?a=' + Math.random();

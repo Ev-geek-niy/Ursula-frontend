@@ -92,9 +92,13 @@ var Gamefield = {
     </div>
     <div class="table">
       <div class="hand">
-        <Card v-for="card in hand"
-          
+        <Card v-for="(card) in hand"
+          :on-click="() => handleCard(card.id)"
+          :key="card.id"
+          :id="card.id"
+          :selectedCard="selectedCard"
         />
+        {{selectedCard}}
       </div>
       <div class="table__status">
         <DeckStatus>Cards left</DeckStatus>
@@ -111,7 +115,7 @@ var Gamefield = {
   `,
   data() {
     return {
-      hand: [1, 2, 3, 4, 5],
+      hand: [{id: 9}, {id: 2}, {id: 3}, {id: 4}, {id: 5}],
       selectedCard: null,
       selectedTile: null,
       selectedFriendTile: null,
@@ -173,6 +177,9 @@ var Gamefield = {
       } else if (!this.firstPlayer && [1, 2, 5].includes(index)) {
         this.selectedEnemyTile = index
       }
+    },
+    handleCard(index) {
+      this.selectedCard = index
     }
   }
 }

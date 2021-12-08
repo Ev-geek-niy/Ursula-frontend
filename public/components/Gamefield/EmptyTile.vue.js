@@ -13,27 +13,7 @@ Vue.component('EmptyTile', {
       }
     },
   },
-  props: {
-    mirror: {
-      type: Boolean,
-    },
-    index: {
-      type: Number,
-      required: true
-    },
-    selectedTile: {
-      type: Number,
-      required: true
-    },
-    selectedFriendTile: {
-      type: Number,
-      required: true
-    },
-    onClick: {
-      type: Function,
-      required: true
-    },
-  },
+  props: ['mirror', 'index', 'selectedFriendTile', 'selectedTile', 'onClick'],
   methods: {
     changeState(state) {
       this.currentState = state + '?a=' + Math.random();
