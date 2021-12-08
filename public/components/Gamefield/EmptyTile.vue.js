@@ -9,7 +9,7 @@ Vue.component('EmptyTile', {
   computed: {
     emptyTileClass() {
       return {
-        selectedTile: this.selectedTile === this.index
+        selectedFriendTile: this.selectedFriendTile === this.index,
       }
     },
   },
@@ -22,6 +22,10 @@ Vue.component('EmptyTile', {
       required: true
     },
     selectedTile: {
+      type: Number,
+      required: true
+    },
+    selectedFriendTile: {
       type: Number,
       required: true
     },

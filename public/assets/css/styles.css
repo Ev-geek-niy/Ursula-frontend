@@ -945,7 +945,7 @@ img .lobby__modal__lock {
     border-bottom: solid 7px rgba(255, 255, 255, 0.7);
 }
 
-.selectedTile {
+.selectedFriendTile {
     border-bottom: solid 7px rgba(210, 3, 3, 0.7);
 }
 

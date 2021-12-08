@@ -13,7 +13,7 @@ var Gamefield = {
     >
         {{index}}
     </PlayerStatus>
-    {{reversedField}}
+    <!--    {{reversedField}}-->
     <div class="battlefield">
       <Decorations/>
       <div class="player-field" v-if="firstPlayer">
@@ -24,6 +24,8 @@ var Gamefield = {
           :mirror="[0,3,4].includes(index) ? true : false"
           :index="index"
           :selectedTile="selectedTile"
+          :selectedFriendTile="selectedFriendTile"
+          :selectedEnemyTile="selectedEnemyTile"
           :currentTurn="currentTurn"
           :on-click="() => handleTile(index)"
           />
@@ -34,6 +36,8 @@ var Gamefield = {
           :mirror="[0,3,4].includes(index) ? true : false"
           :index="index"
           :selectedTile="selectedTile"
+          :selectedFriendTile="selectedFriendTile"
+          :selectedEnemyTile="selectedEnemyTile"
           :currentTurn="currentTurn"
           :on-click="() => handleTile(index)"
         />
@@ -43,6 +47,8 @@ var Gamefield = {
          :mirror="[0,3,4].includes(index) ? true : false"
          :index="index"
          :selectedTile="selectedTile"
+         :selectedFriendTile="selectedFriendTile"
+          :selectedEnemyTile="selectedEnemyTile"
          :on-click="() => handleTile(index)"
         />
       </div>
@@ -54,8 +60,10 @@ var Gamefield = {
           :mirror="[1,2,5].includes(index) ? true : false"
           :index="index"
           :selectedTile="selectedTile"
+          :selectedFriendTile="selectedFriendTile"
+          :selectedEnemyTile="selectedEnemyTile"
           :currentTurn="currentTurn"
-          :on-click="() => handleTile(5 - index)"
+          :on-click="() => handleTile(index)"
         />
         <Commander v-for="(unit, index) in reversedField"
           v-if="unit.creature && unit.creature.isCommander"
@@ -64,8 +72,10 @@ var Gamefield = {
           :mirror="[1,2,5].includes(index) ? true : false"
           :index="index"
           :selectedTile="selectedTile"
+          :selectedFriendTile="selectedFriendTile"
+          :selectedEnemyTile="selectedEnemyTile"
           :currentTurn="currentTurn"
-          :on-click="() => handleTile(5 - index)"
+          :on-click="() => handleTile(index)"
         />
         <EmptyTile v-for="(unit, index) in reversedField"
          v-if="!unit.creature"
@@ -73,6 +83,8 @@ var Gamefield = {
          :mirror="[1,2,5].includes(index) ? true : false"
          :index="index"
          :selectedTile="selectedTile"
+         :selectedFriendTile="selectedFriendTile"
+         :selectedEnemyTile="selectedEnemyTile"
          :currentTurn="currentTurn"
          :on-click="() => handleTile(index)"
         />
@@ -102,6 +114,8 @@ var Gamefield = {
       hand: [1, 2, 3, 4, 5],
       selectedCard: null,
       selectedTile: null,
+      selectedFriendTile: null,
+      selectedEnemyTile: null,
       reversed: false,
     }
   },
@@ -125,7 +139,7 @@ var Gamefield = {
       if (playersId[0] === this.you) {
         return this.$store.state.mosxStoreSync.field
       } else {
-        if(!this.reversed) {
+        if (!this.reversed) {
           let reversedField_ = this.$store.state.mosxStoreSync.field
           console.log(reversedField_)
           this.reversed = true
@@ -141,15 +155,24 @@ var Gamefield = {
   methods: {
     create() {
       // выбран коммандир?
-      if(!this.firstPlayer) {
-        if(this.selectedTile == 0 || this.selectedTile == 5) {
+      if (!this.firstPlayer) {
+        if (this.selectedTile == 0 || this.selectedTile == 5) {
           this.selectedTile = 5 - this.selectedTile
         }
       }
-      this.$store.dispatch('createCreature', {id: 9, index: this.selectedTile })
+      this.$store.dispatch('createCreature', {id: 9, index: this.selectedTile})
     },
     handleTile(index) {
-      this.selectedTile = index
+      this.selectedTile = index;
+      if (this.firstPlayer && [1, 2, 5].includes(index)) {
+        this.selectedFriendTile = index
+      } else if (this.firstPlayer && [0, 3, 4].includes(index)) {
+        this.selectedEnemyTile = index;
+      } else if (!this.firstPlayer && [0, 3, 4].includes(index)) {
+        this.selectedFriendTile = index
+      } else if (!this.firstPlayer && [1, 2, 5].includes(index)) {
+        this.selectedEnemyTile = index
+      }
     }
   }
 }

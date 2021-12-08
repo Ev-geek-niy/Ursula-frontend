@@ -42,9 +42,10 @@ Vue.component('Unit', {
   },
   computed: {
     unitTileClass() {
+      // fantomTile: this.selectedFriendTile !== this.index,
       return {
-        fantomTile: this.selectedTile !== this.index,
-        selectedTile: this.selectedTile === this.index
+        selectedFriendTile: this.selectedFriendTile === this.index,
+        selectedEnemyTile: this.selectedEnemyTile === this.index
       }
     }
   },
@@ -61,6 +62,14 @@ Vue.component('Unit', {
       required: true
     },
     selectedTile: {
+      type: Number,
+      required: true
+    },
+    selectedFriendTile: {
+      type: Number,
+      required: true
+    },
+    selectedEnemyTile: {
       type: Number,
       required: true
     },

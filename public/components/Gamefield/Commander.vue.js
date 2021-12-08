@@ -37,8 +37,8 @@ Vue.component('Commander', {
   computed: {
     unitTileClass() {
       return {
-        fantomTile: this.selectedTile !== this.index,
-        selectedTile: this.selectedTile === this.index
+        selectedFriendTile: this.selectedFriendTile === this.index,
+        selectedEnemyTile: this.selectedEnemyTile === this.index
       }
     }
   },
@@ -55,6 +55,14 @@ Vue.component('Commander', {
       required: true
     },
     selectedTile: {
+      type: Number,
+      required: true
+    },
+    selectedFriendTile: {
+      type: Number,
+      required: true
+    },
+    selectedEnemyTile: {
       type: Number,
       required: true
     },
