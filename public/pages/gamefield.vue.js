@@ -13,7 +13,7 @@ var Gamefield = {
     >
         {{index}}
     </PlayerStatus>
-    <!--    {{reversedField}}-->
+    <div style="display: none">{{reversedField}}</div>
     <div class="battlefield">
       <Decorations/>
       <div class="player-field" v-if="firstPlayer">
@@ -104,18 +104,25 @@ var Gamefield = {
         <DeckStatus>Cards left</DeckStatus>
         <DeckStatus>Discards</DeckStatus>
       </div>
-        <button @click="create"
+      <div>
+        <button @click="useCard"
           style="height: 50px; width: 100px; position: absolute; bottom: 0"
         >
-        Create Trooper
+        ACTIVATE CARD
         </button>
-      <div class="endturn">End turn</div>
+        <button @click="attack"
+          style="height: 50px; width: 100px; position: absolute; bottom: 0; left: 150px;"
+        >
+        ATTACK
+        </button>
+      </div>
+      <div class="endturn" @click="endTurn">End turn</div>
       </div>
   </div>
   `,
   data() {
     return {
-      hand: [{id: 9}, {id: 2}, {id: 3}, {id: 4}, {id: 5}],
+      hand: [{id: 9}, {}, {id: 5}, {}, {}],
       selectedCard: null,
       selectedTile: null,
       selectedFriendTile: null,
@@ -157,14 +164,33 @@ var Gamefield = {
     }
   },
   methods: {
-    create() {
+    useCard() {
       // выбран коммандир?
       if (!this.firstPlayer) {
         if (this.selectedTile == 0 || this.selectedTile == 5) {
           this.selectedTile = 5 - this.selectedTile
         }
       }
-      this.$store.dispatch('createCreature', {id: 9, index: this.selectedTile})
+      switch (this.selectedCard) {
+        case 9:
+          //create trooper
+          this.$store.dispatch('executeCardEffect', {id: 9, index: this.selectedFriendTile})
+          break;
+        case 3:
+          //grenade
+          this.$store.dispatch('executeCardEffect', {id: 3, index: this.selectedEnemyTile})
+          break;
+        case 5:
+          //heal
+          this.$store.dispatch('executeCardEffect', {id: 4, index: this.selectedFriendTile})
+          break;
+      }
+    },
+    endTurn() {
+      this.$store.dispatch('endTurn')
+    },
+    attack() {
+      this.$store.dispatch('attack', {source: this.selectedFriendTile, index: this.selectedEnemyTile})
     },
     handleTile(index) {
       this.selectedTile = index;

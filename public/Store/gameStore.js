@@ -36,8 +36,14 @@ const gameStore = {
     }
   },
   actions: {
-    createCreature({state}, {id, index}) {
+    executeCardEffect({state}, {id, index}) {
       state.room.send('executeCardEffect', {id, index})
+    },
+    attack({state}, {source, index}) {
+      state.room.send('attack', {source, index})
+    },
+    endTurn({state}) {
+      state.room.send('changeTurn')
     },
     async Rooms({state, commit}) {
       const rooms = await state.client.getRooms('game').then(data => data)
