@@ -1,6 +1,8 @@
 // Commander
-const CommanderCalm = 'assets/img/Commander/Commander.png'
 const CommanderSpawn = 'assets/img/Commander/Spawn.gif'
+const CommanderDeath = 'assets/img/Commander/Death.gif'
+const CommanderShoot = 'assets/img/Commander/Shoot.gif'
+const CommanderHit = 'assets/img/Commander/Hit.gif'
 
 Vue.component('Commander', {
   template: `
@@ -9,11 +11,9 @@ Vue.component('Commander', {
       <div>
         <img 
           :class="{'mirror': mirror}" 
-          :src="currentState" 
+          :src="testState" 
           alt="Soldier"
         >
-        <button @click="changeState(Spawn)">spawn</button>
-        <button @click="changeState(Shooting)">Shooting</button>
         <span class="unit__health">
           {{unit.creature.health}}
         </span>
@@ -29,9 +29,13 @@ Vue.component('Commander', {
   `,
   data() {
     return {
-      Calm: CommanderCalm,
-      Spawn: CommanderSpawn,
-      currentState: this.Calm
+      unitUrl: {
+        Spawn: CommanderSpawn,
+        Death: CommanderDeath,
+        Shoot: CommanderShoot,
+        Hit: CommanderHit
+      },
+      currentState: null
     }
   },
   computed: {
@@ -40,9 +44,12 @@ Vue.component('Commander', {
         selectedFriendTile: this.selectedFriendTile === this.index,
         selectedEnemyTile: this.selectedEnemyTile === this.index
       }
+    },
+    testState() {
+      return this.unitUrl[this.$store.state.mosxStoreSync.field[this.index].creature.state[this.state]] + '?a=' + Math.random();
     }
   },
-  props: ['mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
+  props: ['state', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
   methods: {
     changeState(state) {
       this.currentState = state + '?a=' + Math.random();
@@ -52,6 +59,6 @@ Vue.component('Commander', {
     }
   },
   created() {
-    this.currentState = this.Spawn + '?a=' + Math.random();
+    this.currentState = this.unitUrl[this.$store.state.mosxStoreSync.field[this.index].creature.state[this.state]] + '?a=' + Math.random();
   }
 })

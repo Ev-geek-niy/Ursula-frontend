@@ -1,3 +1,9 @@
+const Spawn = 0;
+const Death = 1;
+const Shoot = 2;
+const Hit = 3;
+
+
 var Gamefield = {
   template: `
   <div class="game__container">
@@ -14,6 +20,7 @@ var Gamefield = {
         {{index}}
     </PlayerStatus>
     <div style="display: none">{{reversedField}}</div>
+    <div style="display: none">{{units}}</div>
     <div class="battlefield">
       <Decorations/>
       <div class="player-field" v-if="firstPlayer">
@@ -23,6 +30,7 @@ var Gamefield = {
           :unit="unit"
           :mirror="[0,3,4].includes(index) ? true : false"
           :index="index"
+          :state="units[index]"
           :selectedTile="selectedTile"
           :selectedFriendTile="selectedFriendTile"
           :selectedEnemyTile="selectedEnemyTile"
@@ -35,6 +43,7 @@ var Gamefield = {
           :unit="unit"
           :mirror="[0,3,4].includes(index) ? true : false"
           :index="index"
+          :state="units[index]"
           :selectedTile="selectedTile"
           :selectedFriendTile="selectedFriendTile"
           :selectedEnemyTile="selectedEnemyTile"
@@ -59,6 +68,7 @@ var Gamefield = {
           :unit="unit"
           :mirror="[1,2,5].includes(index) ? true : false"
           :index="index"
+          :state="units[index]"
           :selectedTile="selectedTile"
           :selectedFriendTile="selectedFriendTile"
           :selectedEnemyTile="selectedEnemyTile"
@@ -69,6 +79,7 @@ var Gamefield = {
           v-if="unit.creature && unit.creature.isCommander"
           :data-pos="index == 5 || index == 0 ? index : 5 - index"
           :unit="unit"
+          :state="units[index]"
           :mirror="[1,2,5].includes(index) ? true : false"
           :index="index"
           :selectedTile="selectedTile"
@@ -123,6 +134,9 @@ var Gamefield = {
   data() {
     return {
       hand: [{id: 9}, {}, {id: 5}, {}, {}],
+      //TODO: при повторном использовании числа не заменяются
+      // и поэтому анимация не перевоспроизводится
+      units: [Spawn, Spawn, Spawn, Spawn, Spawn, Spawn],
       selectedCard: null,
       selectedTile: null,
       selectedFriendTile: null,
@@ -178,6 +192,7 @@ var Gamefield = {
           break;
         case 3:
           //grenade
+          this.units[this.selectedEnemyTile] = Hit;
           this.$store.dispatch('executeCardEffect', {id: 3, index: this.selectedEnemyTile})
           break;
         case 5:
@@ -189,7 +204,24 @@ var Gamefield = {
     endTurn() {
       this.$store.dispatch('endTurn')
     },
-    attack() {
+    setSpawn(index) {
+      this.units[index] = Spawn;
+    },
+    setDeath(index) {
+      this.units[index] = Death;
+    },
+    setShoot(index) {
+      this.units[index] = Shoot;
+    },
+    setHit(index) {
+      this.units[index] = Hit;
+    },
+    setNothing(index) {
+      this.units[index] = 5
+    },
+    async attack() {
+      this.setShoot(this.selectedFriendTile)
+      this.setHit(this.selectedEnemyTile)
       this.$store.dispatch('attack', {source: this.selectedFriendTile, index: this.selectedEnemyTile})
     },
     handleTile(index) {

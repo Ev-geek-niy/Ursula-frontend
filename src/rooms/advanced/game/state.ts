@@ -73,6 +73,7 @@ export class Creature {
   @mx public canAttack: boolean = true
   @mx public hasShield: boolean = false
   @mx public armor: number = 0
+  @mx public state: Array<string> = ['Spawn', 'Death', 'Shoot', 'Hit']
 
   constructor(health: number, attack: number, isCommander: boolean = false, weapon: Weapon | null = null) {
     this.health = health
@@ -127,8 +128,8 @@ export class GameState {
   }
 
   public startGame() {
-    this.playerA.commander = new Creature(1, -1, true, new Weapon())
-    this.playerB.commander = new Creature(2, -1, true, new Weapon())
+    this.playerA.commander = new Creature(10, -1, true, new Weapon())
+    this.playerB.commander = new Creature(20, -1, true, new Weapon())
     this.field[0].creature = this.playerA.commander
     this.field[5].creature = this.playerB.commander
     this.playerA.fieldpart = [0, 1, 2]

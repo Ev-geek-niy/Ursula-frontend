@@ -1,8 +1,7 @@
 // Trooper
-const TrooperCalm = 'assets/img/Trooper/Trooper.png'
 const TrooperDeath = 'assets/img/Trooper/Death.gif'
 const TrooperHit = 'assets/img/Trooper/Hit.gif'
-const TrooperShootingAndCovering = 'assets/img/Trooper/Shooting-and-covering.gif'
+const TrooperShoot = 'assets/img/Trooper/Shooting-and-covering.gif'
 const TrooperSpawn = 'assets/img/Trooper/Teleportation.gif'
 
 Vue.component('Unit', {
@@ -15,8 +14,6 @@ Vue.component('Unit', {
           :src="currentState" 
           alt="Soldier"
         >
-        <button @click="changeState(Spawn)">spawn</button>
-        <button @click="changeState(Shooting)">Shooting</button>
         <span class="unit__health">
           {{unit.creature.health}}
         </span>
@@ -32,12 +29,13 @@ Vue.component('Unit', {
   `,
   data() {
     return {
-      Calm: TrooperCalm,
-      Death: TrooperDeath,
-      Shooting: TrooperShootingAndCovering,
-      Hit: TrooperHit,
-      Spawn: TrooperSpawn,
-      currentState: this.Calm
+      unitUrl: {
+        Spawn: TrooperSpawn,
+        Death: TrooperDeath,
+        Shoot: TrooperShoot,
+        Hit: TrooperHit,
+      },
+      currentState: null
     }
   },
   computed: {
@@ -46,9 +44,9 @@ Vue.component('Unit', {
         selectedFriendTile: this.selectedFriendTile === this.index,
         selectedEnemyTile: this.selectedEnemyTile === this.index
       }
-    }
+    },
   },
-  props: ['mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
+  props: ['state', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
   methods: {
     changeState(state) {
       this.currentState = state + '?a=' + Math.random();
@@ -58,6 +56,6 @@ Vue.component('Unit', {
     }
   },
   created() {
-    this.currentState = this.Spawn + '?a=' + Math.random();
+    this.currentState = this.unitUrl[this.$store.state.mosxStoreSync.field[this.index].creature.state[this.state]] + '?a=' + Math.random();
   }
 })
