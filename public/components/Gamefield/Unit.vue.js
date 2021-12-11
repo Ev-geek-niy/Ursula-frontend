@@ -1,8 +1,5 @@
 // Trooper
-const TrooperDeath = 'assets/img/Trooper/Death.gif'
-const TrooperHit = 'assets/img/Trooper/Hit.gif'
-const TrooperShoot = 'assets/img/Trooper/Shooting-and-covering.gif'
-const TrooperSpawn = 'assets/img/Trooper/Teleportation.gif'
+
 
 Vue.component('Unit', {
   template: `
@@ -11,7 +8,7 @@ Vue.component('Unit', {
       <div>
         <img 
           :class="{'mirror': mirror}" 
-          :src="currentState" 
+          :src="stateUrl" 
           alt="Soldier"
         >
         <span class="unit__health">
@@ -46,7 +43,7 @@ Vue.component('Unit', {
       }
     },
   },
-  props: ['state', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
+  props: ['stateUrl', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
   methods: {
     changeState(state) {
       this.currentState = state + '?a=' + Math.random();

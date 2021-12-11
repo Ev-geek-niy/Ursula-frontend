@@ -1,7 +1,12 @@
-const Spawn = 0;
-const Death = 1;
-const Shoot = 2;
-const Hit = 3;
+const CommanderSpawn = 'assets/img/Commander/Spawn.gif'
+const CommanderDeath = 'assets/img/Commander/Death.gif'
+const CommanderShoot = 'assets/img/Commander/Shoot.gif'
+const CommanderHit = 'assets/img/Commander/Hit.gif'
+
+const TrooperSpawn = 'assets/img/Trooper/Teleportation.gif'
+const TrooperDeath = 'assets/img/Trooper/Death.gif'
+const TrooperHit = 'assets/img/Trooper/Hit.gif'
+const TrooperShoot = 'assets/img/Trooper/Shooting-and-covering.gif'
 
 
 var Gamefield = {
@@ -20,7 +25,6 @@ var Gamefield = {
         {{index}}
     </PlayerStatus>
     <div style="display: none">{{reversedField}}</div>
-    <div style="display: none">{{units}}</div>
     <div class="battlefield">
       <Decorations/>
       <div class="player-field" v-if="firstPlayer">
@@ -30,7 +34,7 @@ var Gamefield = {
           :unit="unit"
           :mirror="[0,3,4].includes(index) ? true : false"
           :index="index"
-          :state="units[index]"
+          :stateUrl="units[index]"
           :selectedTile="selectedTile"
           :selectedFriendTile="selectedFriendTile"
           :selectedEnemyTile="selectedEnemyTile"
@@ -43,7 +47,7 @@ var Gamefield = {
           :unit="unit"
           :mirror="[0,3,4].includes(index) ? true : false"
           :index="index"
-          :state="units[index]"
+          :stateUrl="units[index]"
           :selectedTile="selectedTile"
           :selectedFriendTile="selectedFriendTile"
           :selectedEnemyTile="selectedEnemyTile"
@@ -68,7 +72,7 @@ var Gamefield = {
           :unit="unit"
           :mirror="[1,2,5].includes(index) ? true : false"
           :index="index"
-          :state="units[index]"
+          :stateUrl="units[index]"
           :selectedTile="selectedTile"
           :selectedFriendTile="selectedFriendTile"
           :selectedEnemyTile="selectedEnemyTile"
@@ -79,7 +83,7 @@ var Gamefield = {
           v-if="unit.creature && unit.creature.isCommander"
           :data-pos="index == 5 || index == 0 ? index : 5 - index"
           :unit="unit"
-          :state="units[index]"
+          :stateUrl="units[index]"
           :mirror="[1,2,5].includes(index) ? true : false"
           :index="index"
           :selectedTile="selectedTile"
@@ -134,9 +138,7 @@ var Gamefield = {
   data() {
     return {
       hand: [{id: 9}, {}, {id: 5}, {}, {}],
-      //TODO: при повторном использовании числа не заменяются
-      // и поэтому анимация не перевоспроизводится
-      units: [Spawn, Spawn, Spawn, Spawn, Spawn, Spawn],
+      units: [CommanderSpawn, TrooperSpawn, TrooperSpawn, TrooperSpawn, TrooperSpawn, CommanderSpawn],
       selectedCard: null,
       selectedTile: null,
       selectedFriendTile: null,
@@ -188,6 +190,7 @@ var Gamefield = {
       switch (this.selectedCard) {
         case 9:
           //create trooper
+          this.units[this.selectedFriendTile] = this.setStateUrl(TrooperSpawn)
           this.$store.dispatch('executeCardEffect', {id: 9, index: this.selectedFriendTile})
           break;
         case 3:
@@ -201,27 +204,47 @@ var Gamefield = {
           break;
       }
     },
+    setStateUrl(url) {
+      return url + '?a=' + Math.random();
+    },
     endTurn() {
       this.$store.dispatch('endTurn')
     },
-    setSpawn(index) {
-      this.units[index] = Spawn;
-    },
-    setDeath(index) {
-      this.units[index] = Death;
-    },
-    setShoot(index) {
-      this.units[index] = Shoot;
-    },
-    setHit(index) {
-      this.units[index] = Hit;
-    },
-    setNothing(index) {
-      this.units[index] = 5
-    },
     async attack() {
-      this.setShoot(this.selectedFriendTile)
-      this.setHit(this.selectedEnemyTile)
+      //Проверка атаки командира команды 1
+      if (this.selectedFriendTile === 5) {
+        this.units[this.selectedFriendTile] = this.setStateUrl(CommanderShoot)
+        //Проверка, что атакуют командира команды 2
+        if (this.selectedEnemyTile === 0) {
+          this.units[this.selectedEnemyTile] = this.setStateUrl(CommanderHit)
+        }
+        //Иначе атакуют обычных юнитов
+        else {
+          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHit)
+        }
+      }
+      //Проверка атаки командира командира 2
+      else if (this.selectedFriendTile === 0) {
+        this.units[this.selectedFriendTile] = this.setStateUrl(CommanderShoot)
+        //Проверка, что атакуют командира команды 1
+        if (this.selectedEnemyTile === 5) {
+          this.units[this.selectedEnemyTile] = this.setStateUrl(CommanderHit)
+        }
+        //Иначе атакуют обычных юнитов
+        else {
+          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHit)
+        }
+      }
+      //Иначе атакует обычный юнит
+      else {
+        this.units[this.selectedFriendTile] = this.setStateUrl(TrooperShoot)
+        //Проверка на атаку по командиру
+        if (this.selectedEnemyTile === 0 || this.selectedEnemyTile === 5) {
+          this.units[this.selectedEnemyTile] = this.setStateUrl(CommanderHit)
+        } else {
+          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHit)
+        }
+      }
       this.$store.dispatch('attack', {source: this.selectedFriendTile, index: this.selectedEnemyTile})
     },
     handleTile(index) {

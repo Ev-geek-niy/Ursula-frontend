@@ -1,8 +1,5 @@
 // Commander
-const CommanderSpawn = 'assets/img/Commander/Spawn.gif'
-const CommanderDeath = 'assets/img/Commander/Death.gif'
-const CommanderShoot = 'assets/img/Commander/Shoot.gif'
-const CommanderHit = 'assets/img/Commander/Hit.gif'
+
 
 Vue.component('Commander', {
   template: `
@@ -11,7 +8,7 @@ Vue.component('Commander', {
       <div>
         <img 
           :class="{'mirror': mirror}" 
-          :src="testState" 
+          :src="stateUrl" 
           alt="Soldier"
         >
         <span class="unit__health">
@@ -27,17 +24,6 @@ Vue.component('Commander', {
     </div>
   </div>
   `,
-  data() {
-    return {
-      unitUrl: {
-        Spawn: CommanderSpawn,
-        Death: CommanderDeath,
-        Shoot: CommanderShoot,
-        Hit: CommanderHit
-      },
-      currentState: null
-    }
-  },
   computed: {
     unitTileClass() {
       return {
@@ -45,20 +31,11 @@ Vue.component('Commander', {
         selectedEnemyTile: this.selectedEnemyTile === this.index
       }
     },
-    testState() {
-      return this.unitUrl[this.$store.state.mosxStoreSync.field[this.index].creature.state[this.state]] + '?a=' + Math.random();
-    }
   },
-  props: ['state', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
+  props: ['stateUrl', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
   methods: {
-    changeState(state) {
-      this.currentState = state + '?a=' + Math.random();
-    },
     handleClick() {
       this.onClick()
     }
   },
-  created() {
-    this.currentState = this.unitUrl[this.$store.state.mosxStoreSync.field[this.index].creature.state[this.state]] + '?a=' + Math.random();
-  }
 })
