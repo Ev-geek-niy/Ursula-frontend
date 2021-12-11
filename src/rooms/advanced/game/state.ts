@@ -20,6 +20,8 @@ export class Player {
   constructor(name:string,mana:number = Constants.STARTING_MANA){
     this.name = name
     this.mana = mana 
+    this.hand = []
+    this.deck = []
   }
 }
 
@@ -51,7 +53,7 @@ export class Weapon {
 export class Creature {
   @mx public health: number
   @mx public attack: number
-
+  @mx public state: Array<string> = ['Spawn', 'Death', 'Shoot', 'Hit']
   // Командир
   @mx public isCommander: boolean = false
   @mx public weapon: Weapon | null = null
@@ -235,7 +237,6 @@ export class GameState {
       sourcePlayer.player = this.players.get(sourcePlayer.ID)
       targetPlayer.player = this.players.get(targetPlayer.ID)
 
-
       if(sourcePlayer.player.mana >= Cards[cardID].cost) {
         eval(Cards[cardID].effect)
         sourcePlayer.player.mana -= Cards[cardID].cost
@@ -256,9 +257,6 @@ export class GameState {
   }
 
   public changeTurn() {
-    this.players.forEach( (player) => {
-      player.mana = this.currentMana
-    })
 
     if(this.gameState === "game") {
       // Добавляем игроку в руку карты до 5
@@ -289,6 +287,10 @@ export class GameState {
           })
         }
       }
+
+      this.players.forEach( (player) => {
+        player.mana = this.currentMana
+      })
     }
 
     return this.currentTurn
@@ -309,7 +311,6 @@ export class GameState {
               this.field[index].creature.canAttack = true
             }
           }
-
         }
       })
     })
