@@ -117,10 +117,10 @@ var Gamefield = {
     </div>
     <div class="table">
       <div class="hand">
-        <Card v-for="(card) in hand"
-          :on-click="() => handleCard(card.id)"
-          :key="card.id"
-          :id="card.id"
+        <Card v-for="(card, index) in hand"
+          :on-click="() => handleCard(card)"
+          :key="index"
+          :id="card"
           :selectedCard="selectedCard"
         />
       </div>
@@ -146,7 +146,6 @@ var Gamefield = {
   `,
   data() {
     return {
-      hand: [{id: 9}, {}, {id: 5}, {}, {}],
       units: [CommanderSpawnRed, TrooperSpawnRed, TrooperSpawnRed, TrooperSpawnRed, TrooperSpawnRed, CommanderSpawn, CommanderSpawnRed],
       selectedCard: null,
       selectedTile: null,
@@ -186,6 +185,9 @@ var Gamefield = {
     },
     currentTurn() {
       return this.$store.state.mosxStoreSync.currentTurn
+    },
+    hand() {
+      return this.$store.state.mosxStoreSync.players[this.you].hand
     }
   },
   methods: {

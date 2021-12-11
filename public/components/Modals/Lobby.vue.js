@@ -11,7 +11,7 @@ Vue.component('Lobby', {
         <img class="lobby__modal__lock" v-if="Object.keys(users).length === 2" :src="lock" alt="lock">
         <div v-else class="lobby__modal__lock"></div>
       </div>
-
+       
       <ul class="lobby__modal__players">
         <lobby-player v-for="(player, index) in users" :key="index" :player="index"/>
       </ul>

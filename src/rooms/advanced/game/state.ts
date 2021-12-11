@@ -2,7 +2,7 @@ import {mx} from "mosx"
 
 class Constants {
   static readonly MAX_MANA = 10
-  static readonly STARTING_MANA  = 1
+  static readonly STARTING_MANA = 1
   static readonly DEFAULT_WEAPON_DAMAGE = 2
   static readonly HAND_SIZE = 5
   static readonly COMMANDER_A_POSITION = 0
@@ -16,25 +16,25 @@ export class Card {
   @mx public cost: number
   @mx public effect: string
 
-  constructor(id:number,name:string,cost:number,effect:string) {
-      this.id = id
-      this.name = name
-      this.cost = cost
-      this.effect = effect
+  constructor(id: number, name: string, cost: number, effect: string) {
+    this.id = id
+    this.name = name
+    this.cost = cost
+    this.effect = effect
   }
 }
 
 let Cards = [
-    new Card(0,"Rifle",0,"target.weapon = new Weapon(3,4);target.onWeaponEquip();"),
-    new Card(1,"Heavy Rifle",0,"target.weapon = new Weapon(7,2);target.onWeaponEquip();"),
-    new Card(2,"Grenade",0,"tile.creature.health -= 5;"),
-    new Card(3,"Airstrike",0,"targetPlayer.fieldpart.forEach(tile => {if(tile.creature) {tile.creature.health -= 5 } })"),
-    new Card(4,"Healthpack",0,"target.creature.health += 4;"),
-    new Card(5,"Smoke Grenade",0,"target.effects.push(new Effect('smoked',1,'defensive'));"),
-    new Card(6,"Shield",0,"target.creature.hasShield = true;"),
-    new Card(7,"Battle Armor",0,"target.creature.armor += 2;"),
-    new Card(8,"Trooper",0,"target.creature = new Creature(4,4);"),
-    new Card(9,"Heavy Trooper",0,"target.creature =  new Creature(8,5);"),
+  new Card(0, "Rifle", 0, "target.weapon = new Weapon(3,4);target.onWeaponEquip();"),
+  new Card(1, "Heavy Rifle", 0, "target.weapon = new Weapon(7,2);target.onWeaponEquip();"),
+  new Card(2, "Grenade", 0, "tile.creature.health -= 5;"),
+  new Card(3, "Airstrike", 0, "targetPlayer.fieldpart.forEach(tile => {if(tile.creature) {tile.creature.health -= 5 } })"),
+  new Card(4, "Healthpack", 0, "target.creature.health += 4;"),
+  new Card(5, "Smoke Grenade", 0, "target.effects.push(new Effect('smoked',1,'defensive'));"),
+  new Card(6, "Shield", 0, "target.creature.hasShield = true;"),
+  new Card(7, "Battle Armor", 0, "target.creature.armor += 2;"),
+  new Card(8, "Trooper", 0, "target.creature = new Creature(4,4);"),
+  new Card(9, "Heavy Trooper", 0, "target.creature =  new Creature(8,5);"),
 ]
 
 @mx.Object
@@ -168,21 +168,21 @@ export class GameState {
 
   public startGame() {
     // создаём и ставим коммандиров
-    this.playerA.commander = new Creature(50,-1,true,new Weapon())
-    this.playerB.commander = new Creature(50,-1,true,new Weapon())
+    this.playerA.commander = new Creature(50, -1, true, new Weapon())
+    this.playerB.commander = new Creature(50, -1, true, new Weapon())
     this.field[Constants.COMMANDER_A_POSITION].creature = this.playerA.commander
-    this.field[Constants.COMMANDER_B_POSITION].creature = this.playerB.commander 
-  
+    this.field[Constants.COMMANDER_B_POSITION].creature = this.playerB.commander
+
     // устанавливаем служебные переменные
-    this.playerA.fieldpart = [0,1,2]
-    this.playerB.fieldpart = [3,4,5]
+    this.playerA.fieldpart = [0, 1, 2]
+    this.playerB.fieldpart = [3, 4, 5]
     this.gameState = "game"
     this.currentTurn = this.changeTurn()
 
     // заполняем руки и деки игроков
-    this.players.forEach( player => {
+    this.players.forEach(player => {
       player.deck = this.FillDeck()
-      for(let i = 0; i < Constants.HAND_SIZE; i++) {
+      for (let i = 0; i < Constants.HAND_SIZE; i++) {
         player.hand.push(this.getCardFromDeck(player.deck))
       }
     })
@@ -254,11 +254,11 @@ export class GameState {
         sourcePlayer = this.playerB
         targetPlayer = this.playerA
       }
-
-      if(sourcePlayer.player.mana >= Cards[cardID].cost) {
+      sourcePlayer.player = this.players.get(sourcePlayer.ID)
+      if (sourcePlayer.player.mana >= Cards[cardID].cost) {
         eval(Cards[cardID].effect)
         sourcePlayer.player.mana -= Cards[cardID].cost
-        sourcePlayer.player.hand.splice(sourcePlayer.player.hand.findIndex(card => cardID == card),1)
+        sourcePlayer.player.hand.splice(sourcePlayer.player.hand.findIndex(card => cardID == card), 1)
       }
 
       this.checkLooser()
@@ -346,13 +346,13 @@ export class GameState {
   public getCardFromDeck(playerDeck: Array<number>) {
     let index = Math.floor(Math.random() * playerDeck.length)
     let card = playerDeck[index]
-    playerDeck.splice(index,1)
+    playerDeck.splice(index, 1)
     return card
   }
 
   public FillDeck() {
     let deck = []
-    Cards.forEach( card => {
+    Cards.forEach(card => {
       deck.push(card.id)
       deck.push(card.id)
     })
