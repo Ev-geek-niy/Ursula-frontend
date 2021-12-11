@@ -3,10 +3,20 @@ const CommanderDeath = 'assets/img/Commander/Death.gif'
 const CommanderShoot = 'assets/img/Commander/Shoot.gif'
 const CommanderHit = 'assets/img/Commander/Hit.gif'
 
+const CommanderSpawnRed = 'assets/img/Commander/Spawn_red.gif'
+const CommanderDeathRed = 'assets/img/Commander/Death_red.gif'
+const CommanderShootRed = 'assets/img/Commander/Shoot_red.gif'
+const CommanderHitRed = 'assets/img/Commander/Hit_red.gif'
+
 const TrooperSpawn = 'assets/img/Trooper/Teleportation.gif'
 const TrooperDeath = 'assets/img/Trooper/Death.gif'
 const TrooperHit = 'assets/img/Trooper/Hit.gif'
 const TrooperShoot = 'assets/img/Trooper/Shooting-and-covering.gif'
+
+const TrooperSpawnRed = 'assets/img/Trooper/Teleportation_red.gif'
+const TrooperDeathRed = 'assets/img/Trooper/Death_red.gif'
+const TrooperHitRed = 'assets/img/Trooper/Hit_red.gif'
+const TrooperShootRed = 'assets/img/Trooper/Shooting-and-covering_red.gif'
 
 
 var Gamefield = {
@@ -83,7 +93,7 @@ var Gamefield = {
           v-if="unit.creature && unit.creature.isCommander"
           :data-pos="index == 5 || index == 0 ? index : 5 - index"
           :unit="unit"
-          :stateUrl="units[index]"
+          :stateUrl="units[5 - index]"
           :mirror="[1,2,5].includes(index) ? true : false"
           :index="index"
           :selectedTile="selectedTile"
@@ -113,7 +123,6 @@ var Gamefield = {
           :id="card.id"
           :selectedCard="selectedCard"
         />
-        {{selectedCard}}
       </div>
       <div class="table__status">
         <DeckStatus>Cards left</DeckStatus>
@@ -138,7 +147,7 @@ var Gamefield = {
   data() {
     return {
       hand: [{id: 9}, {}, {id: 5}, {}, {}],
-      units: [CommanderSpawn, TrooperSpawn, TrooperSpawn, TrooperSpawn, TrooperSpawn, CommanderSpawn],
+      units: [CommanderSpawnRed, TrooperSpawnRed, TrooperSpawnRed, TrooperSpawnRed, TrooperSpawnRed, CommanderSpawn, CommanderSpawnRed],
       selectedCard: null,
       selectedTile: null,
       selectedFriendTile: null,
@@ -210,29 +219,29 @@ var Gamefield = {
     endTurn() {
       this.$store.dispatch('endTurn')
     },
-    async attack() {
+    attack() {
       //Проверка атаки командира команды 1
       if (this.selectedFriendTile === 5) {
         this.units[this.selectedFriendTile] = this.setStateUrl(CommanderShoot)
         //Проверка, что атакуют командира команды 2
         if (this.selectedEnemyTile === 0) {
-          this.units[this.selectedEnemyTile] = this.setStateUrl(CommanderHit)
+          this.units[this.selectedEnemyTile] = this.setStateUrl(CommanderHitRed)
         }
         //Иначе атакуют обычных юнитов
         else {
-          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHit)
+          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHitRed)
         }
       }
       //Проверка атаки командира командира 2
       else if (this.selectedFriendTile === 0) {
-        this.units[this.selectedFriendTile] = this.setStateUrl(CommanderShoot)
+        this.units[5 - this.selectedFriendTile] = this.setStateUrl(CommanderShoot)
         //Проверка, что атакуют командира команды 1
         if (this.selectedEnemyTile === 5) {
-          this.units[this.selectedEnemyTile] = this.setStateUrl(CommanderHit)
+          this.units[5 - this.selectedEnemyTile] = this.setStateUrl(CommanderHitRed)
         }
         //Иначе атакуют обычных юнитов
         else {
-          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHit)
+          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHitRed)
         }
       }
       //Иначе атакует обычный юнит
@@ -240,9 +249,9 @@ var Gamefield = {
         this.units[this.selectedFriendTile] = this.setStateUrl(TrooperShoot)
         //Проверка на атаку по командиру
         if (this.selectedEnemyTile === 0 || this.selectedEnemyTile === 5) {
-          this.units[this.selectedEnemyTile] = this.setStateUrl(CommanderHit)
+          this.units[5 - this.selectedEnemyTile] = this.setStateUrl(CommanderHitRed)
         } else {
-          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHit)
+          this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHitRed)
         }
       }
       this.$store.dispatch('attack', {source: this.selectedFriendTile, index: this.selectedEnemyTile})
@@ -262,5 +271,11 @@ var Gamefield = {
     handleCard(index) {
       this.selectedCard = index
     }
+  },
+  created() {
+    if (this.reversed) {
+      this.units[0] = this.setStateUrl(CommanderSpawn)
+    }
   }
 }
+
