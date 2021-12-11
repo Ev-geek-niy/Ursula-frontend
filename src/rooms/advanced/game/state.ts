@@ -177,13 +177,13 @@ export class GameState {
     this.playerA.fieldpart = [0, 1, 2]
     this.playerB.fieldpart = [3, 4, 5]
     this.gameState = "game"
-    this.currentTurn = this.changeTurn()
+    this.currentTurn = this.playerA.ID
 
     // заполняем руки и деки игроков
     this.players.forEach(player => {
       player.deck = this.FillDeck()
       for (let i = 0; i < Constants.HAND_SIZE; i++) {
-        player.hand.push(this.getCardFromDeck(player.deck))
+          player.hand.push(this.getCardFromDeck(player.deck))
       }
     })
   }
@@ -281,9 +281,6 @@ export class GameState {
     })
 
     if (this.gameState === "game") {
-      if (this.currentTurn.length == 0) {
-        this.currentTurn = this.playerA.ID
-      }
       //console.log('BEFORE END TURN', JSON.stringify(this.field, null, 4))
       if (this.currentTurn === this.playerA.ID) {
         this.turnHandler(this.playerA.fieldpart, 'defensive')
@@ -295,6 +292,14 @@ export class GameState {
         this.currentTurn = this.playerA.ID
       }
       //console.log('AFTER END TURN', JSON.stringify(this.field, null, 4))
+      this.players.forEach( player => {
+        if(player.hand.length < Constants.HAND_SIZE) {
+          for (let i = 0; i < Constants.HAND_SIZE; i++) {
+            if(player.hand[i] === undefined)
+              player.hand[i] = this.getCardFromDeck(player.deck)
+          }
+        }
+      })
     }
 
     return this.currentTurn
