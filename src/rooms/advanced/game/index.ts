@@ -23,7 +23,7 @@ export class GameRoom extends Room<GameState> {
     if(this.state.gameState === "game"){
       if (type === "executeCardEffect") {
         
-        this.state.executeCardEffect(client.id, data.id, this.state.field[data.index])
+        this.state.executeCardEffect(client.id, data.id, this.state.field[data.index], data.handIndex)
       }
       if (type === "attack") {
         this.state.attack(client.id ,this.state.field[data.source],this.state.field[data.index])

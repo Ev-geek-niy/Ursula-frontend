@@ -242,7 +242,7 @@ export class GameState {
     }
   }
 
-  public executeCardEffect(playerID: string, cardID: number, target: Tile) {
+  public executeCardEffect(playerID: string, cardID: number, target: Tile, handCardIndex: number) {
     // различаем кто-кого атакует
     if (this.currentTurn === playerID) {
       let sourcePlayer = null
@@ -258,7 +258,7 @@ export class GameState {
       if (sourcePlayer.player.mana >= Cards[cardID].cost) {
         eval(Cards[cardID].effect)
         sourcePlayer.player.mana -= Cards[cardID].cost
-        sourcePlayer.player.hand.splice(sourcePlayer.player.hand.findIndex(card => cardID == card), 1)
+        sourcePlayer.player.hand[handCardIndex] = undefined
       }
 
       this.checkLooser()
