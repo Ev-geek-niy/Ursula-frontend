@@ -36,8 +36,8 @@ const gameStore = {
     }
   },
   actions: {
-    executeCardEffect({state}, {id, index}) {
-      state.room.send('executeCardEffect', {id, index})
+    executeCardEffect({state}, {id, index, handIndex}) {
+      state.room.send('executeCardEffect', {id, index, handIndex})
     },
     attack({state}, {source, index}) {
       state.room.send('attack', {source, index})

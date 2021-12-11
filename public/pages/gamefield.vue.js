@@ -35,6 +35,7 @@ var Gamefield = {
         {{index}}
     </PlayerStatus>
     <div style="display: none">{{reversedField}}</div>
+    <div style="display: none">{{selectedCard}}</div>
     <div class="battlefield">
       <Decorations/>
       <div class="player-field" v-if="firstPlayer">
@@ -118,10 +119,10 @@ var Gamefield = {
     <div class="table">
       <div class="hand">
         <Card v-for="(card, index) in hand"
-          :on-click="() => handleCard(card)"
+          :on-click="() => handleCard(card, index)"
           :key="index"
           :id="card"
-          :selectedCard="selectedCard"
+          :selectedCard="selectedCard.id"
         />
       </div>
       <div class="table__status">
@@ -147,7 +148,7 @@ var Gamefield = {
   data() {
     return {
       units: [CommanderSpawnRed, TrooperSpawnRed, TrooperSpawnRed, TrooperSpawnRed, TrooperSpawnRed, CommanderSpawn, CommanderSpawnRed],
-      selectedCard: null,
+      selectedCard: {id: null, index: null},
       selectedTile: null,
       selectedFriendTile: null,
       selectedEnemyTile: null,
@@ -192,26 +193,39 @@ var Gamefield = {
   },
   methods: {
     useCard() {
+      console.log('Работает?')
       // выбран коммандир?
       if (!this.firstPlayer) {
         if (this.selectedTile == 0 || this.selectedTile == 5) {
           this.selectedTile = 5 - this.selectedTile
         }
       }
-      switch (this.selectedCard) {
+      switch (this.selectedCard.id) {
         case 9:
           //create trooper
           this.units[this.selectedFriendTile] = this.setStateUrl(TrooperSpawn)
-          this.$store.dispatch('executeCardEffect', {id: 9, index: this.selectedFriendTile})
+          this.$store.dispatch('executeCardEffect', {
+            id: 8,
+            index: this.selectedFriendTile,
+            handIndex: this.selectedCard.index
+          })
           break;
         case 3:
           //grenade
           this.units[this.selectedEnemyTile] = Hit;
-          this.$store.dispatch('executeCardEffect', {id: 3, index: this.selectedEnemyTile})
+          this.$store.dispatch('executeCardEffect', {
+            id: 2,
+            index: this.selectedEnemyTile,
+            handIndex: this.selectedCard.index
+          })
           break;
-        case 5:
+        case 4:
           //heal
-          this.$store.dispatch('executeCardEffect', {id: 4, index: this.selectedFriendTile})
+          this.$store.dispatch('executeCardEffect', {
+            id: 3,
+            index: this.selectedFriendTile,
+            handIndex: this.selectedCard.index
+          })
           break;
       }
     },
@@ -270,8 +284,9 @@ var Gamefield = {
         this.selectedEnemyTile = index
       }
     },
-    handleCard(index) {
-      this.selectedCard = index
+    handleCard(id, index) {
+      this.selectedCard.id = id
+      this.selectedCard.index = index
     }
   },
   created() {
