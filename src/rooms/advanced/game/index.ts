@@ -35,7 +35,7 @@ export class GameRoom extends Room<GameState> {
   }
 
   public onJoin(client: Client, params: any) {
-    console.log(`Player ${client.id} joined`, params)
+    console.log(`Player ${client.id} joined`)
     this.state.createPlayer(client.id)
 
     if (this.clients.size >= 2) {
