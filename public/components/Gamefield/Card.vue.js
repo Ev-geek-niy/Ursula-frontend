@@ -8,7 +8,7 @@ Vue.component('Card', {
   <div class="card" :class="selected" @click="handleClick">
     <img
       :src="cardUrl[id]"
-      alt="card">
+      :alt="id">
   </div>
   `,
   data() {
@@ -23,11 +23,11 @@ Vue.component('Card', {
   computed: {
     selected() {
       return {
-        selectedCard: this.selectedCard === this.id
+        selectedCard: this.selectedCard === this.index
       }
     },
   },
-  props: ['onClick', 'selectedCard', 'id'],
+  props: ['onClick', 'selectedCard', 'id', 'index'],
   methods: {
     handleClick() {
       this.onClick()
