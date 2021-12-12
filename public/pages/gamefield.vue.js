@@ -21,10 +21,15 @@ const TrooperShootRed = 'assets/img/Trooper/Shooting-and-covering_red.gif'
 const shieldIcon = '/assets/img/Icons/Shield.png'
 const smokeIcon = '/assets/img/Icons/Smoke.png'
 
+const SpawnAudio = '/assets/audio/Spawn.mp3'
+const DeathAudio = '/assets/audio/Death.mp3'
+const HitAudio = '/assets/audio/Hit.mp3'
+const ShootAudio = '/assets/audio/Shoot.mp3'
 
 var Gamefield = {
   template: `
   <div class="game__container">
+  <audio :src="currentAudio" autoplay></audio>
     <div class="top">
       <div class="angle angle-left"></div>
       <div class="angle angle-right"></div>
@@ -173,7 +178,12 @@ var Gamefield = {
       selectedEnemyTile: null,
       reversed: false,
       shieldIcon,
-      smokeIcon
+      smokeIcon,
+      SpawnAudio,
+      DeathAudio,
+      ShootAudio,
+      HitAudio,
+      currentAudio: SpawnAudio
     }
   },
   computed: {
@@ -249,6 +259,12 @@ var Gamefield = {
           break;
         //Grenade
         case 3:
+          if (this.selectedEnemyTile === 0 || this.selectedEnemyTile === 5) {
+            this.units[this.selectedEnemyTile] = this.setStateUrl(CommanderHitRed)
+          } else {
+            this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHitRed)
+          }
+          this.currentAudio = this.HitAudio
           this.$store.dispatch('executeCardEffect', {
             id: 2,
             index: this.selectedFriendTile,
@@ -257,7 +273,16 @@ var Gamefield = {
           break
         //Airstrike
         case 4:
-          //this.units[this.selectedEnemyTile] = Hit;
+          if ([0, 3, 4].includes(this.selectedEnemyTile)) {
+            this.units[0] = this.setStateUrl(CommanderHitRed)
+            this.units[3] = this.setStateUrl(TrooperHitRed)
+            this.units[4] = this.setStateUrl(TrooperHitRed)
+          } else {
+            this.units[1] = this.setStateUrl(CommanderHitRed)
+            this.units[2] = this.setStateUrl(TrooperHitRed)
+            this.units[5] = this.setStateUrl(TrooperHitRed)
+          }
+          this.currentAudio = this.HitAudio
           this.$store.dispatch('executeCardEffect', {
             id: 3,
             index: this.selectedEnemyTile,
@@ -299,6 +324,7 @@ var Gamefield = {
         //Trooper
         case 9:
           this.units[this.selectedFriendTile] = this.setStateUrl(TrooperSpawn)
+          this.currentAudio = this.SpawnAudio
           this.$store.dispatch('executeCardEffect', {
             id: 8,
             index: this.selectedFriendTile,
@@ -307,6 +333,8 @@ var Gamefield = {
           break;
         //Heavy Trooper
         case 10:
+          this.units[this.selectedFriendTile] = this.setStateUrl(TrooperSpawn)
+          this.currentAudio = this.SpawnAudio
           this.$store.dispatch('executeCardEffect', {
             id: 9,
             index: this.selectedFriendTile,
@@ -356,6 +384,7 @@ var Gamefield = {
           this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHitRed)
         }
       }
+      this.currentAudio = this.ShootAudio
       this.$store.dispatch('attack', {source: this.selectedFriendTile, index: this.selectedEnemyTile})
     },
     handleTile(index) {
