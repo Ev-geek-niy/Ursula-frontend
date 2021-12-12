@@ -228,7 +228,7 @@ var Gamefield = {
           break
         //Airstrike
         case 4:
-          this.units[this.selectedEnemyTile] = Hit;
+          //this.units[this.selectedEnemyTile] = Hit;
           this.$store.dispatch('executeCardEffect', {
             id: 3,
             index: this.selectedEnemyTile,

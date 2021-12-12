@@ -1,3 +1,4 @@
+import { ConnectionPoolClosedEvent } from "mongodb"
 import {mx} from "mosx"
 
 class Constants {
@@ -25,16 +26,16 @@ export class Card {
 }
 
 let Cards = [
-  new Card(0, "Rifle", 0, "target.weapon = new Weapon(3,4);target.onWeaponEquip();"),
-  new Card(1, "Heavy Rifle", 0, "target.weapon = new Weapon(7,2);target.onWeaponEquip();"),
-  new Card(2, "Grenade", 0, "tile.creature.health -= 5;"),
-  new Card(3, "Airstrike", 0, "targetPlayer.fieldpart.forEach(tile => {if(tile.creature) {tile.creature.health -= 5 } })"),
-  new Card(4, "Healthpack", 0, "target.creature.health += 4;"),
-  new Card(5, "Smoke Grenade", 0, "target.effects.push(new Effect('smoked',1,'defensive'));"),
-  new Card(6, "Shield", 0, "target.creature.hasShield = true;"),
-  new Card(7, "Battle Armor", 0, "target.creature.armor += 2;"),
-  new Card(8, "Trooper", 0, "target.creature = new Creature(4,4);"),
-  new Card(9, "Heavy Trooper", 0, "target.creature =  new Creature(8,5);"),
+  new Card(1, "Rifle", 4, "if(target.creature && target.creature.isCommander) { target.creature.weapon = new Weapon(3,6);target.creature.onWeaponEquip(); }"),
+  new Card(2, "Heavy Rifle", 6, "if(target.creature && target.creature.isCommander) { target.creature.weapon = new Weapon(2,8);target.creature.onWeaponEquip(); }"),
+  new Card(3, "Grenade", 5, "if(target.creature) { target.creature.health -= 5; }"),
+  new Card(4, "Airstrike", 8, "targetPlayer.fieldpart.forEach(index => { if(this.field[index].creature) { this.field[index].creature.health -= 15 } })"),
+  new Card(5, "Healthpack", 4, "if(target.creature) { target.creature.health += 10; }"),
+  new Card(6, "Smoke Grenade", 3, "target.effects.push(new Effect('smoked',1,'defensive'));"),
+  new Card(7, "Shield", 3, "if(target.creature) { target.creature.hasShield = true; }"),
+  new Card(8, "Battle Armor", 3, "if(target.creature) { target.creature.armor += 2; }"),
+  new Card(9, "Trooper", 3, "target.creature = new Creature(8,6);"),
+  new Card(10, "Heavy Trooper", 5, "target.creature =  new Creature(12,5);"),
 ]
 
 @mx.Object
@@ -69,7 +70,7 @@ export class Player {
   @mx public hand: Array<number>
   @mx public deck: Array<number>
 
-  constructor(name: string, mana: number = Constants.STARTING_MANA) {
+  constructor(name: string, mana: number = Constants.MAX_MANA) {
     this.name = name
     this.mana = mana
     this.hand = []
@@ -94,8 +95,9 @@ export class Weapon {
     if (this.durability != -1) {
       this.durability -= 1
     }
+    console.log(this.durability)
     // eval(this.effect) испольняем эффект оружия после его использования
-    if (this.durability == 0) {
+    if (this.durability <= 0) {
       this.damage = Constants.DEFAULT_WEAPON_DAMAGE
       this.durability = -1
     }
@@ -127,9 +129,7 @@ export class Creature {
   }
 
   public onWeaponEquip() {
-    if (this.isCommander) {
       this.attack = this.weapon.damage
-    }
   }
 }
 
@@ -236,6 +236,7 @@ export class GameState {
         }
         if (source.isCommander) {
           source.weapon.afterUsage()
+          source.onWeaponEquip()
         }
         this.checkLooser()
       }
@@ -257,8 +258,10 @@ export class GameState {
       sourcePlayer.player = this.players.get(sourcePlayer.ID)
       if (sourcePlayer.player.mana >= Cards[cardID].cost) {
         eval(Cards[cardID].effect)
+        console.log(Cards[cardID].name)
         sourcePlayer.player.mana -= Cards[cardID].cost
         sourcePlayer.player.hand[handCardIndex] = undefined
+        console.log(sourcePlayer.player.hand)
       }
 
       this.checkLooser()
@@ -293,11 +296,9 @@ export class GameState {
       }
       //console.log('AFTER END TURN', JSON.stringify(this.field, null, 4))
       this.players.forEach( player => {
-        if(player.hand.length < Constants.HAND_SIZE) {
-          for (let i = 0; i < Constants.HAND_SIZE; i++) {
-            if(player.hand[i] === undefined)
-              player.hand[i] = this.getCardFromDeck(player.deck)
-          }
+        for (let i = 0; i < Constants.HAND_SIZE; i++) {
+          if(player.hand[i] === undefined)
+            player.hand[i] = this.getCardFromDeck(player.deck)
         }
       })
     }

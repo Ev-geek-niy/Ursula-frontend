@@ -22,14 +22,19 @@ export class GameRoom extends Room<GameState> {
     console.log(`GameRoom received message from ${client.id} with type: `, type, data)
     if(this.state.gameState === "game"){
       if (type === "executeCardEffect") {
-        
-        this.state.executeCardEffect(client.id, data.id, this.state.field[data.index], data.handIndex)
+        if(client.id !== null && data.id !== null && data.handIndex !== null) {
+          this.state.executeCardEffect(client.id, data.id, this.state.field[data.index], data.handIndex)
+        }
       }
       if (type === "attack") {
-        this.state.attack(client.id ,this.state.field[data.source],this.state.field[data.index])
+        if(client.id !== null && data.source !== null && data.index !== null) {
+          this.state.attack(client.id ,this.state.field[data.source],this.state.field[data.index])
+        }
       }
-      if (type === "changeTurn") {
-        this.state.changeTurn();
+      if (type == "changeTurn") {
+        if(client.id === this.state.currentTurn) {
+          this.state.changeTurn();
+        }
       }
     }
   }
