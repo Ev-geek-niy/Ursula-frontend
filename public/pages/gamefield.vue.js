@@ -264,7 +264,7 @@ var Gamefield = {
           } else {
             this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHitRed)
           }
-          this.currentAudio = this.HitAudio
+          this.currentAudio = this.setStateUrl(HitAudio)
           this.$store.dispatch('executeCardEffect', {
             id: 2,
             index: this.selectedFriendTile,
@@ -282,7 +282,7 @@ var Gamefield = {
             this.units[2] = this.setStateUrl(TrooperHitRed)
             this.units[5] = this.setStateUrl(TrooperHitRed)
           }
-          this.currentAudio = this.HitAudio
+          this.currentAudio = this.setStateUrl(HitAudio)
           this.$store.dispatch('executeCardEffect', {
             id: 3,
             index: this.selectedEnemyTile,
@@ -324,7 +324,7 @@ var Gamefield = {
         //Trooper
         case 9:
           this.units[this.selectedFriendTile] = this.setStateUrl(TrooperSpawn)
-          this.currentAudio = this.SpawnAudio
+          this.currentAudio = this.setStateUrl(SpawnAudio)
           this.$store.dispatch('executeCardEffect', {
             id: 8,
             index: this.selectedFriendTile,
@@ -334,7 +334,7 @@ var Gamefield = {
         //Heavy Trooper
         case 10:
           this.units[this.selectedFriendTile] = this.setStateUrl(TrooperSpawn)
-          this.currentAudio = this.SpawnAudio
+          this.currentAudio = this.setStateUrl(SpawnAudio)
           this.$store.dispatch('executeCardEffect', {
             id: 9,
             index: this.selectedFriendTile,
@@ -389,7 +389,7 @@ var Gamefield = {
           this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHitRed)
         }
       }
-      this.currentAudio = this.ShootAudio
+      this.currentAudio = this.setStateUrl(this.ShootAudio)
       this.$store.dispatch('attack', {source: this.selectedFriendTile, index: this.selectedEnemyTile})
     },
     handleTile(index) {
