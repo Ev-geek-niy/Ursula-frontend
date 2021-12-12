@@ -378,9 +378,14 @@ var Gamefield = {
       else {
         this.units[this.selectedFriendTile] = this.setStateUrl(TrooperShoot)
         //Проверка на атаку по командиру
-        if (this.selectedEnemyTile === 0 || this.selectedEnemyTile === 5) {
-          this.units[5 - this.selectedEnemyTile] = this.setStateUrl(CommanderHitRed)
+        if (this.selectedEnemyTile === 0 && this.firstPlayer) {
+          console.log('Атакуют лидера второй команды')
+          this.units[0] = this.setStateUrl(CommanderHitRed)
+        } else if (this.selectedEnemyTile === 5 && !this.firstPlayer) {
+          console.log('Атакуют лидера первой команды')
+          this.units[0] = this.setStateUrl(CommanderHitRed)
         } else {
+          console.log('Атакуют плебса')
           this.units[this.selectedEnemyTile] = this.setStateUrl(TrooperHitRed)
         }
       }
