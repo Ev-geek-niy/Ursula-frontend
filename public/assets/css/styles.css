@@ -413,6 +413,25 @@ img .lobby__modal__lock {
     font-size: 20px;
 }
 
+.cardBtn {
+    width: 145px;
+    height: 100px;
+    background: #C4C4C4;
+    border: 4px solid #626262;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out
+}
+
+.cardBtn:hover {
+    background: #FFFFFF;
+}
+
+.cardBtn p {
+    text-align: center;
+    font-size: 20px;
+}
+
 .deck__wrapper {
     padding-top: 7px;
     width: 190px;
@@ -434,16 +453,24 @@ img .lobby__modal__lock {
     background: #626262;
 }
 
+.availableMana {
+    width: 32px;
+    height: 15px;
+    background: #20D6C7;
+}
+
+.missingMana {
+    width: 32px;
+    height: 15px;
+    background: #626262;
+}
+
 /*UNIT*/
 
 .unit {
     display: inline-block;
     cursor: pointer;
     height: 352px;
-}
-
-.unit img {
-    height: 100%;
 }
 
 .unit .mirror {
@@ -615,11 +642,27 @@ img .lobby__modal__lock {
 .table__status {
     position: absolute;
     height: 245px;
-    top: 57px;
+    top: 63px;
     right: 14px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+}
+
+.table__btns {
+    position: absolute;
+    height: 245px;
+    width: 320px;
+    top: 63px;
+    left: 14px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.table__btns-actions {
+    display: flex;
+    justify-content: space-between;
 }
 
 .hand {
@@ -631,13 +674,19 @@ img .lobby__modal__lock {
 }
 
 .endturn {
-    margin: 30px auto 0;
-    width: 380px;
-    height: 30px;
-    background-color: #73FCFD;
+    width: 100%;
+    height: 60px;
+    background-color: #20D6C7;
     text-align: center;
     font-size: 25px;
-    line-height: 30px;
+    line-height: 60px;
+    border: 4px solid #1D887F;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out
+}
+
+.endturn:hover {
+    background: #27FFED
 }
 
 .player-field div[data-pos='0'] {
@@ -898,11 +947,7 @@ img .lobby__modal__lock {
     top: 40px;
     left: 40px;
     height: 100px;
-}
-
-.player-status-1 span {
-    font-size: 30px;
-    padding-left: 25px;
+    width: 485px
 }
 
 .player-status-1 .player-status__img {
@@ -918,11 +963,7 @@ img .lobby__modal__lock {
     top: 40px;
     right: 40px;
     height: 100px;
-}
-
-.player-status-2 span {
-    font-size: 30px;
-    padding-right: 25px;
+    width: 485px;
 }
 
 .player-status-2 .player-status__img {
@@ -931,6 +972,14 @@ img .lobby__modal__lock {
     height: 100px;
     border: 4px solid #626262;
 }
+
+.player-status__descr {
+    font-size: 30px;
+    padding-left: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
 
 .unit__block {
     z-index: 5;
@@ -993,4 +1042,19 @@ div[data-pos='4'] .tile {
 div[data-pos='5'] .tile {
     bottom: 18px;
     left: 100px;
+}
+
+.smoked {
+    height: 60px;
+    position: absolute;
+    bottom: -27px;
+    left: 120px;
+}
+
+.shield {
+    position: absolute;
+    bottom: -11px;
+    left: 89px;
+    height: 32px;
+    z-index: -1;
 }

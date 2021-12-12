@@ -1,6 +1,3 @@
-// Trooper
-
-
 Vue.component('Unit', {
   template: `
   <div class="unit__block" @click="handleClick">
@@ -17,6 +14,16 @@ Vue.component('Unit', {
         <span class="unit__attack">
           {{unit.creature.attack}}
         </span>
+        <div>
+          <img v-if="smoked"
+            class="smoked" 
+            :src="smokeSrc" 
+            alt="smoke">
+          <img v-if="hasShield"
+            class="shield"
+            :src="shieldSrc" 
+            alt="smoke">
+        </div>
       </div>
       <div class="tile" :class="unitTileClass">
       {{index}}
@@ -24,17 +31,6 @@ Vue.component('Unit', {
     </div>
   </div>
   `,
-  data() {
-    return {
-      unitUrl: {
-        Spawn: TrooperSpawn,
-        Death: TrooperDeath,
-        Shoot: TrooperShoot,
-        Hit: TrooperHit,
-      },
-      currentState: null
-    }
-  },
   computed: {
     unitTileClass() {
       return {
@@ -42,17 +38,19 @@ Vue.component('Unit', {
         selectedEnemyTile: this.selectedEnemyTile === this.index
       }
     },
-  },
-  props: ['stateUrl', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
-  methods: {
-    changeState(state) {
-      this.currentState = state + '?a=' + Math.random();
+    smoked() {
+      if (this.unit.effects[0]) {
+        return this.unit.effects[0].name === 'smoked'
+      } else return false
     },
+    hasShield() {
+      return this.unit.creature.hasShield
+    }
+  },
+  props: ['smokeSrc', 'shieldSrc', 'stateUrl', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
+  methods: {
     handleClick() {
       this.onClick()
     }
   },
-  created() {
-    this.currentState = this.unitUrl[this.$store.state.mosxStoreSync.field[this.index].creature.state[this.state]] + '?a=' + Math.random();
-  }
 })

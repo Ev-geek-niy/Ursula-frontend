@@ -18,6 +18,9 @@ const TrooperDeathRed = 'assets/img/Trooper/Death_red.gif'
 const TrooperHitRed = 'assets/img/Trooper/Hit_red.gif'
 const TrooperShootRed = 'assets/img/Trooper/Shooting-and-covering_red.gif'
 
+const shieldIcon = '/assets/img/Icons/Shield.png'
+const smokeIcon = '/assets/img/Icons/Smoke.png'
+
 
 var Gamefield = {
   template: `
@@ -31,6 +34,8 @@ var Gamefield = {
       v-for="(player, index) in players"
       :key="index"
       :mirror="index !== you"
+      :currentTurn="currentTurn"
+      :you="index"
     >
         {{index}}
     </PlayerStatus>
@@ -51,6 +56,8 @@ var Gamefield = {
           :selectedEnemyTile="selectedEnemyTile"
           :currentTurn="currentTurn"
           :on-click="() => handleTile(index)"
+          :smokeSrc="smokeIcon"
+          :shieldSrc="shieldIcon"
           />
         <Commander v-for="(unit, index) in field"
           v-if="unit.creature && unit.creature.isCommander"
@@ -64,6 +71,8 @@ var Gamefield = {
           :selectedEnemyTile="selectedEnemyTile"
           :currentTurn="currentTurn"
           :on-click="() => handleTile(index)"
+          :smokeSrc="smokeIcon"
+          :shieldSrc="shieldIcon"
         />
         <EmptyTile v-for="(unit, index) in field"
          v-if="!unit.creature"
@@ -89,6 +98,8 @@ var Gamefield = {
           :selectedEnemyTile="selectedEnemyTile"
           :currentTurn="currentTurn"
           :on-click="() => handleTile(index)"
+          :smokeSrc="smokeIcon"
+          :shieldSrc="shieldIcon"
         />
         <Commander v-for="(unit, index) in reversedField"
           v-if="unit.creature && unit.creature.isCommander"
@@ -102,6 +113,8 @@ var Gamefield = {
           :selectedEnemyTile="selectedEnemyTile"
           :currentTurn="currentTurn"
           :on-click="() => handleTile(index)"
+          :smokeSrc="smokeIcon"
+          :shieldSrc="shieldIcon"
         />
         <EmptyTile v-for="(unit, index) in reversedField"
          v-if="!unit.creature"
@@ -127,22 +140,27 @@ var Gamefield = {
         />
       </div>
       <div class="table__status">
-        <DeckStatus>Cards left</DeckStatus>
-        <DeckStatus>Discards</DeckStatus>
+        <DeckStatus :deck="deck" :missing="missing">Cards left</DeckStatus>
+        <ManaStatus :mana="mana">Your mana</ManaStatus>
       </div>
-      <div>
-        <button @click="useCard"
-          style="height: 50px; width: 100px; position: absolute; bottom: 0"
-        >
-        ACTIVATE CARD
-        </button>
-        <button @click="attack"
-          style="height: 50px; width: 100px; position: absolute; bottom: 0; left: 150px;"
-        >
-        ATTACK
-        </button>
+      <div class="table__btns">
+      <div class="table__btns-actions">
+        <button 
+            @click="useCard"
+            class="cardBtn"
+          >
+            ACTIVATE CARD
+          </button>
+          <button 
+            @click="attack"
+            class="cardBtn"
+          >
+            ATTACK
+          </button>
       </div>
       <div class="endturn" @click="endTurn">End turn</div>
+        </div>
+      </div>
       </div>
   </div>
   `,
@@ -154,6 +172,8 @@ var Gamefield = {
       selectedFriendTile: null,
       selectedEnemyTile: null,
       reversed: false,
+      shieldIcon,
+      smokeIcon
     }
   },
   computed: {
@@ -188,8 +208,17 @@ var Gamefield = {
     currentTurn() {
       return this.$store.state.mosxStoreSync.currentTurn
     },
+    mana() {
+      return this.$store.state.mosxStoreSync.players[this.you].mana
+    },
     hand() {
       return this.$store.state.mosxStoreSync.players[this.you].hand
+    },
+    deck() {
+      return this.players[this.you].deck.length - 1
+    },
+    missing() {
+      return 15 - this.deck
     }
   },
   methods: {

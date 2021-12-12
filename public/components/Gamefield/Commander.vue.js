@@ -1,6 +1,3 @@
-// Commander
-
-
 Vue.component('Commander', {
   template: `
   <div class="unit__block" @click="handleClick">
@@ -17,6 +14,16 @@ Vue.component('Commander', {
         <span class="unit__attack">
           {{unit.creature.attack}}
         </span>
+        <div>
+          <img v-if="smoked"
+            class="smoked" 
+            :src="smokeSrc" 
+            alt="smoke">
+          <img v-if="hasShield"
+            class="shield" 
+            :src="shieldSrc" 
+            alt="smoke">
+        </div>
       </div>
       <div class="tile" :class="unitTileClass">
       {{index}}
@@ -31,8 +38,16 @@ Vue.component('Commander', {
         selectedEnemyTile: this.selectedEnemyTile === this.index
       }
     },
+    smoked() {
+      if (this.unit.effects[0]) {
+        return this.unit.effects[0].name === 'smoked'
+      } else return false
+    },
+    hasShield() {
+      return this.unit.creature.hasShield
+    }
   },
-  props: ['stateUrl', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
+  props: ['smokeSrc', 'shieldSrc', 'stateUrl', 'mirror', 'unit', 'index', 'selectedFriendTile', 'selectedEnemyTile', 'selectedTile', 'onClick', 'currentTurn'],
   methods: {
     handleClick() {
       this.onClick()

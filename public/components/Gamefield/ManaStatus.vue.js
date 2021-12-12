@@ -1,4 +1,4 @@
-Vue.component('DeckStatus', {
+Vue.component('ManaStatus', {
   template: `
   <div class="deck">
     <p>
@@ -6,18 +6,23 @@ Vue.component('DeckStatus', {
     </p>
     <div class="deck__wrapper">
       <div
-        v-for="(i, index) in deck"
+        v-for="(i, index) in mana"
         :key="index + 'deck'"
-        class="available"
+        class="availableMana"
       >
       </div>
       <div
-        v-for="(x, index) in missing" 
+        v-for="(x, index) in wasted" 
         :key="index + 'missing'"
-        class="missing">
+        class="missingMana">
       </div>
     </div>
   </div>
   `,
-  props: ['deck', 'missing'],
+  props: ['mana'],
+  computed: {
+    wasted() {
+      return 10 - this.mana
+    }
+  }
 })

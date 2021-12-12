@@ -6,7 +6,10 @@ Vue.component('PlayerStatus', {
     <div class="player-status__img">
       <img :src="pic" alt="Starege">
     </div>
-    <span><slot></slot></span>
+    <div class="player-status__descr">
+      <span><slot></slot></span>
+      <span v-if="currentTurn === you">Your turn</span>
+    </div>
   </div>
   `,
   data() {
@@ -14,9 +17,5 @@ Vue.component('PlayerStatus', {
       pic
     }
   },
-  props: {
-    mirror: {
-      type: Boolean,
-    }
-  }
+  props: ['mirror', 'currentTurn', 'you']
 })
