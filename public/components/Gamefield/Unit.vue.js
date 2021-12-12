@@ -26,7 +26,6 @@ Vue.component('Unit', {
         </div>
       </div>
       <div class="tile" :class="unitTileClass">
-      {{index}}
       </div>
     </div>
   </div>

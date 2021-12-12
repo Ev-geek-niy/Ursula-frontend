@@ -225,7 +225,9 @@ var Gamefield = {
       return this.$store.state.mosxStoreSync.players[this.you].hand
     },
     deck() {
-      return this.players[this.you].deck.length - 1
+      if (this.firstPlayer) {
+        return this.players[this.you].deck.length - 1
+      } else return this.players[this.you].deck.length - 1
     },
     missing() {
       return 15 - this.deck
@@ -266,7 +268,7 @@ var Gamefield = {
           }
           this.currentAudio = this.setStateUrl(HitAudio)
           this.$store.dispatch('executeCardEffect', {
-            id: 2,
+            id: 0,
             index: this.selectedFriendTile,
             handIndex: this.selectedCard.index
           })
@@ -284,7 +286,7 @@ var Gamefield = {
           }
           this.currentAudio = this.setStateUrl(HitAudio)
           this.$store.dispatch('executeCardEffect', {
-            id: 3,
+            id: 1,
             index: this.selectedEnemyTile,
             handIndex: this.selectedCard.index
           })
@@ -292,7 +294,7 @@ var Gamefield = {
         //Healthpack
         case 5:
           this.$store.dispatch('executeCardEffect', {
-            id: 4,
+            id: 2,
             index: this.selectedFriendTile,
             handIndex: this.selectedCard.index
           })
@@ -300,7 +302,7 @@ var Gamefield = {
         //Smoke Grenade
         case 6:
           this.$store.dispatch('executeCardEffect', {
-            id: 5,
+            id: 3,
             index: this.selectedFriendTile,
             handIndex: this.selectedCard.index
           })
@@ -308,7 +310,7 @@ var Gamefield = {
         //Shield
         case 7:
           this.$store.dispatch('executeCardEffect', {
-            id: 6,
+            id: 4,
             index: this.selectedFriendTile,
             handIndex: this.selectedCard.index
           })
@@ -316,7 +318,7 @@ var Gamefield = {
         //Battle Armor
         case 8:
           this.$store.dispatch('executeCardEffect', {
-            id: 7,
+            id: 5,
             index: this.selectedFriendTile,
             handIndex: this.selectedCard.index
           })
@@ -326,7 +328,7 @@ var Gamefield = {
           this.units[this.selectedFriendTile] = this.setStateUrl(TrooperSpawn)
           this.currentAudio = this.setStateUrl(SpawnAudio)
           this.$store.dispatch('executeCardEffect', {
-            id: 8,
+            id: 6,
             index: this.selectedFriendTile,
             handIndex: this.selectedCard.index
           })
@@ -336,7 +338,7 @@ var Gamefield = {
           this.units[this.selectedFriendTile] = this.setStateUrl(TrooperSpawn)
           this.currentAudio = this.setStateUrl(SpawnAudio)
           this.$store.dispatch('executeCardEffect', {
-            id: 9,
+            id: 7,
             index: this.selectedFriendTile,
             handIndex: this.selectedCard.index
           })

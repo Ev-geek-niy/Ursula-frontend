@@ -2,7 +2,6 @@ Vue.component('EmptyTile', {
   template: `
   <div class="unit__block" @click="handleClick">
     <div class="tile" :class="emptyTileClass">
-      {{index}}
     </div>
   </div>
   `,

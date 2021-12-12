@@ -10,21 +10,11 @@ Vue.component('Hero', {
         <h2>{{username}}</h2>
         <h3>Level 666</h3>
         <div class="hero-exp">
-          <span>200/500</span></div>
+          <span>0/500</span></div>
       </div>
     </div>
     <div class="hero-character">
       <img class="hero-img" :src="Trooper" alt="Hero Image">
-      <router-link to="/change" v-if="change">
-        <p class="hero__btn">
-          Change my character
-        </p>
-      </router-link>
-      <router-link to="/menu" v-else>
-        <p class="hero__btn">
-          Back
-        </p>
-      </router-link>
     </div>
   </div>
   `,

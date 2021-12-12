@@ -1,4 +1,4 @@
-import { ConnectionPoolClosedEvent } from "mongodb"
+import {ConnectionPoolClosedEvent} from "mongodb"
 import {mx} from "mosx"
 
 class Constants {
@@ -26,8 +26,6 @@ export class Card {
 }
 
 let Cards = [
-  new Card(1, "Rifle", 4, "if(target.creature && target.creature.isCommander) { target.creature.weapon = new Weapon(3,6);target.creature.onWeaponEquip(); }"),
-  new Card(2, "Heavy Rifle", 6, "if(target.creature && target.creature.isCommander) { target.creature.weapon = new Weapon(2,8);target.creature.onWeaponEquip(); }"),
   new Card(3, "Grenade", 5, "if(target.creature) { target.creature.health -= 5; }"),
   new Card(4, "Airstrike", 8, "targetPlayer.fieldpart.forEach(index => { if(this.field[index].creature) { this.field[index].creature.health -= 15 } })"),
   new Card(5, "Healthpack", 4, "if(target.creature) { target.creature.health += 10; }"),
@@ -129,7 +127,7 @@ export class Creature {
   }
 
   public onWeaponEquip() {
-      this.attack = this.weapon.damage
+    this.attack = this.weapon.damage
   }
 }
 
@@ -183,7 +181,7 @@ export class GameState {
     this.players.forEach(player => {
       player.deck = this.FillDeck()
       for (let i = 0; i < Constants.HAND_SIZE; i++) {
-          player.hand.push(this.getCardFromDeck(player.deck))
+        player.hand.push(this.getCardFromDeck(player.deck))
       }
     })
   }
@@ -295,9 +293,9 @@ export class GameState {
         this.currentTurn = this.playerA.ID
       }
       //console.log('AFTER END TURN', JSON.stringify(this.field, null, 4))
-      this.players.forEach( player => {
+      this.players.forEach(player => {
         for (let i = 0; i < Constants.HAND_SIZE; i++) {
-          if(player.hand[i] === undefined)
+          if (player.hand[i] === undefined)
             player.hand[i] = this.getCardFromDeck(player.deck)
         }
       })
